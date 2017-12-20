@@ -17,7 +17,9 @@
     },
     "bugs" : "https://github.com/Spb8Lighting/FixturesFinder.com/issues",
     "dependencies" : { 
-        "jquery": "^3.x"
+        "jquery": "^3.x",
+		"fancybox": "^3.x",
+		"select2": "4.0.5"
     },
     "licenses" : [
         {
