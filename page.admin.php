@@ -460,7 +460,7 @@ function SaveDMXChart($infos, $xml) {
 	$infos['wheel'] = $TotalWheel;
 	$infos['lastdate'] = $FolderLib;
 	if($BreakAt > 0) {
-		$BreakAtCount++
+		$BreakAtCount++;
 		if($BreakAtCount == $BreakAt) {
 			die();
 		}
