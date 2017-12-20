@@ -1,4 +1,4 @@
-﻿<div class="form">
+<div class="form">
 	<h2>Changelog</h2>
 	<div class="display list changelog">
 <?php
@@ -7,6 +7,7 @@ $Changelog = array(
 					'ADDED|FixturesFinder.com has been pushed on GitHub to get support from community',
 					'ADDED|Fixture preset has now the color slot and gobo displayed',
 					'FIXED|Some fixtures profile was not ingested because of a SQL field to straight...',
+					'FIXED|Restrict the confirmation pop-up for the main page',
 					'UPDATED|Fixture preset are still not perfect, but some improvment has been done to display better informations'
 	),
 	'2017-12-17' => array(
