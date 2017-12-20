@@ -1,0 +1,28 @@
+{
+    "name" : "FixturesFinder.com", 
+    "description" : "TBD",
+    "keywords" : ["fixture", "finder", "website", "search"],
+    "homepage" : "https://fixturesfinder.com",
+    "version" : "1",
+    "author" : {
+        "name" : "Sylvain Guiblain",
+        "email" : "sylvain.guiblain@gmail.com",
+        "url" : "https://spb8.lighting"
+    },
+    "contributors" : [],
+    "main" : "master",
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/Spb8Lighting/FixturesFinder.com"
+    },
+    "bugs" : "https://github.com/Spb8Lighting/FixturesFinder.com/issues",
+    "dependencies" : { 
+        "jquery": "^3.x"
+    },
+    "licenses" : [
+        {
+            "type" : "GNU v3",
+            "url" : "https://www.gnu.org/licenses/gpl-3.0.en.html"
+        }
+    ]
+}
