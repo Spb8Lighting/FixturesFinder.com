@@ -38,7 +38,7 @@ $(document).ready(function() {
 		obj = {}, p, idx;
 		for (var i=0, n=pairs.length; i < n; i++) {
 			p = pairs[i].split('=');
-			idx = p[0]; 
+			idx = p[0];
 			if (obj[idx] === undefined) {
 				obj[idx] = unescape(p[1]);
 			}else{
@@ -56,7 +56,7 @@ $(document).ready(function() {
 			_Debug_ = true;
 			Debug('Debug mode detected', 'log');
 		}
-		Debug([$Datas], 'info');	
+		Debug([$Datas], 'info');
 	}
 	if(window.location != window.parent.location) {
 		Debug('Iframe detected, add class iFrame to HTML', 'log');
@@ -140,7 +140,7 @@ $(document).ready(function() {
 	$.fn.AddSelect = function(ChRef) {
 		Debug('Function AddSelect(ChRef)', 'group');
 		Debug([ChRef], 'warn');
-			var Html = DefaultSelect.replace(/SPB8/gm, ChRef);	
+			var Html = DefaultSelect.replace(/SPB8/gm, ChRef);
 			Debug('Add new Select channel type', 'info');
 				this.append(Html);
 			Debug('Add autocomplete to this new Select', 'info');
@@ -320,7 +320,7 @@ $(document).ready(function() {
 						value = value.toLowerCase();
 						$('select[name="ch'+(NbActualChannel + index)+'"]').val(value).trigger('change.select2').CheckValueSelect();
 					}
-					
+
 				});
 			}
 		$Datas = false;
@@ -444,21 +444,23 @@ $(document).ready(function() {
              }
         );
     }
-	$HomeLink.click(function(e) {
-        e.preventDefault();
-		var URI = $(this).attr('href');
-        myConfirm({
-            title    : 'Are you sure?',
-            message  : 'Do you want to loose your search and refresh this page?',
-            callback : function (value) {
-                if (value) {
-                   window.location = URI;
-                } else {
-                    return false;
-                }
-            }
-        });
-	});
+	if(window.location.pathname == '/') {
+		$HomeLink.click(function(e) {
+			e.preventDefault();
+			var URI = $(this).attr('href');
+			myConfirm({
+				title    : 'Are you sure?',
+				message  : 'Do you want to loose your search and refresh this page?',
+				callback : function (value) {
+					if (value) {
+					   window.location = URI;
+					} else {
+						return false;
+					}
+				}
+			});
+		});
+	}
 	//DMX Input down
     $(PlusButton).click(function(e){
 		Debug('CLICK + button of DMX Channel n°', 'group');
@@ -550,7 +552,7 @@ $(document).ready(function() {
 			}
 		Debug('', 'groupend');
 	});
-	
+
 	//Scroll Shortcut
 	$(window).scroll(function() {
 		if($(this).scrollTop() > 50) {
@@ -658,7 +660,7 @@ $(document).ready(function() {
 				TrigChange();
 			}
 		Debug('', 'groupend');
-	});	
+	});
 	//Detect Channel changed
 	$(<?php echo _Channels_; ?>).on('change','select', function(data){
 		Debug('SEARCH for FIXTURES Matching New settings', 'group');
@@ -720,7 +722,7 @@ $(document).ready(function() {
 			}
 		return false;
 	});
-	
+
 	window.onpopstate = function(e) {
 		if(e.state == null) {
 			$.fancybox.close();
@@ -733,11 +735,11 @@ $(document).ready(function() {
 			}
 		}
 	};
-	
+
 	if(window.location.hash) {
 		Debug('RESTORE Previous session', 'group');
 		HashUsed(false);
 		Debug('', 'groupend');
 	}
-	
+
 });
