@@ -52,13 +52,13 @@ function CleanDetail($file, $text) {
 	$feedback[] = $text.' Cache cleaned';
 	unset($CacheName, $CacheNameHead, $CacheNameBody);
 }
-// Delete all cache file of "Fixtures Details"
-function CleanFixtureCache() {
+// Delete all cache file starting by "$start"
+function CleanFixtureCache($start) {
 	global $feedback;
 	$files = glob($_SERVER['DOCUMENT_ROOT'].'/'._CacheFolder_."*");
 	foreach($files as $file){
 		if(is_file($file)) {
-			if(substr(basename($file), 0, 7) == 'fixture') {
+			if(substr(basename($file), 0, strlen($start)) == $start) {
 				unlink($file);
 			}
 		}
@@ -542,7 +542,10 @@ if(isset($_POST['parse']) AND hash_equals(adminPass, crypt($_POST['parse'], _adm
 			CleanDetail(_List_, 'Fixture List');
 		}
 		if(isset($_POST['cleancacheFixtureDetail'])) {
-			CleanFixtureCache();
+			CleanFixtureCache('fixture');
+		}
+		if(isset($_POST['cleancacheSearch'])) {
+			CleanFixtureCache(_CacheSearch_);
 		}
 	}
 	if(isset($_POST['resitemap'])) {
@@ -908,6 +911,18 @@ if(isset($_POST['parse']) AND hash_equals(adminPass, crypt($_POST['parse'], _adm
 					<input type="checkbox" id="cleancacheFixtureDetail" name="cleancacheFixtureDetail" value="1" />
 				</div>
 			</div>
+			<div>
+				<div>
+					<label for="cleancacheSearch">
+						🗍 Clean Search Cache
+						<span>less than a second</span>
+					</label>
+				</div>
+				<div>
+					<input type="checkbox" id="cleancacheSearch" name="cleancacheSearch" value="1" />
+				</div>
+			</div>
+			</fieldset>
 			<fieldset>
 				<h2>Security</h2>
 				<div>

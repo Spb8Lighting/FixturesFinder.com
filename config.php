@@ -33,7 +33,7 @@
 		define('_CacheHead_',				'.head.php');
 		define('_CacheBody_',				'.body.php');
 		define('_CacheExt_',				'.php');
-		define('_CacheSearch_',			'search.');
+		define('_CacheSearch_',			'search');
 
 ############################
 #						   #
