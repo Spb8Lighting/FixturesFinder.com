@@ -3,6 +3,9 @@
 	<div class="display list changelog">
 <?php
 $Changelog = array(
+	'2017-12-21' => array(
+					'ADDED|The searchs are now cached on the server to avoid Database overload. It reduce by 50% the answer time'
+	),
 	'2017-12-20' => array(
 					'ADDED|FixturesFinder.com has been pushed on GitHub to get support from community',
 					'ADDED|Fixture preset has now the color slot and gobo displayed',

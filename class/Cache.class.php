@@ -1,5 +1,22 @@
 <?php
 class Cache {
+	public function AjaxSearch($File, $Save=FALSE) {
+		global $data;
+		$CacheName = CacheFile(_CacheSearch_.'-'.$File)._CacheExt_;
+		if($Save) {
+			$CacheFile = fopen($CacheName, 'w');
+			fwrite($CacheFile, json_encode($Save));
+			fclose($CacheFile);
+			return TRUE;
+		} else {
+			if(file_exists($CacheName)) {
+				$data = json_decode(file_get_contents($CacheName), true);
+				return TRUE;
+			} else {
+				return FALSE;
+			}
+		}
+	}
 	public function CacheHead($File, $Title, $Description) {
 		global $title, $description;
 		$title = $Title;
