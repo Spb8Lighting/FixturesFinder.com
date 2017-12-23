@@ -1,0 +1,199 @@
+<form method="post">
+<div>
+<fieldset>
+	<h2>Ingestions</h2>
+	<div>
+		<div>
+			<label for="globalScan">
+				🗃 Global Ingestion (on = All Releases)
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="globalScan" name="globalScan" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="scanpicture">
+				🗃 1. Ingest Manufacturers Wheels
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="scanpicture" name="scanpicture" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="scanfixture">
+				🗃 2. Ingest Fixtures
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="scanfixture" name="scanfixture" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="updatefixture">
+				🗃 3. Update Fixtures Profile with Pictures
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="updatefixture" name="updatefixture" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="checkEvol">
+				🗃 4. Compute Fixtures Changelog
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="checkEvol" name="checkEvol" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="reparameters">
+				📒 5. Ingest DMX Attributs
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="reparameters" name="reparameters" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="restats">
+				📈 6. Compute FF@ Statistics
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="restats" name="restats" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="scanpreset">
+				🗃 Scan Only Fixtures Presets
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="scanpreset" name="scanpreset" value="1" />
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<h2>Quality</h2>
+	<div>
+		<div>
+			<label>
+				Reports
+			</label>
+		</div>
+		<div>
+			<a href="./<?php echo _QualityScan_; ?>">Global file report</a> <a href="./<?php echo _Quality_; ?>">Fixture Quality report</a>
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<h2>Referencing</h2>
+	<div>
+		<div>
+			<label for="resitemap">
+				🖧 Renew Sitemap
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="resitemap" name="resitemap" value="1" />
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<h2>Cache Management</h2>
+	<div>
+		<div>
+			<label for="cleancache">
+				📁 Clean all caches
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="cleancache" name="cleancache" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="cleancacheChangelog">
+				🗍 Clean Changelog cache
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="cleancacheChangelog" name="cleancacheChangelog" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="cleancacheFixtureChangelog">
+				🗍 Clean Fixture Changelog cache
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="cleancacheFixtureChangelog" name="cleancacheFixtureChangelog" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="cleancacheFixtureList">
+				🗍 Clean Fixture list cache
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="cleancacheFixtureList" name="cleancacheFixtureList" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="cleancacheFixtureDetail">
+				🗍 Clean Fixture detail cache
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="cleancacheFixtureDetail" name="cleancacheFixtureDetail" value="1" />
+		</div>
+	</div>
+	<div>
+		<div>
+			<label for="cleancacheSearch">
+				🗍 Clean Search Cache
+			</label>
+		</div>
+		<div>
+			<input type="checkbox" id="cleancacheSearch" name="cleancacheSearch" value="1" />
+		</div>
+	</div>
+	</fieldset>
+	<fieldset>
+		<h2>Security</h2>
+		<div>
+			<div>
+				<label for="parse">
+					🔒 Password
+				</label>
+			</div>
+			<div>
+				<input type="password" name="parse" id="parse"/>
+			</div>
+		</div>
+
+		<div>
+			<div>
+				<label for="submit">
+					Ready?
+				</label>
+			</div>
+			<div>
+				<input name="submit" id="submit" type="submit" value="Have some fun ..." />
+			</div>
+		</div>
+	</fieldset>
+</div>
