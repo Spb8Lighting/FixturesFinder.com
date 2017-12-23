@@ -300,7 +300,7 @@ class DMXChartManager
 		}
 	}
 	public function HTMLAccessory($html, $Title, $Style) {
-		return ($html == 'li') ? '<li title="'.$Title.'" style="'.$Style.'"></li>' : '<span class="WheelSlot" title="'.$Title.'" style="'.$Style.'"></span>';
+		return ($html == 'li') ? '<li title="'.$Title.'" style="'.$Style.'"></li>' : '<span class="WheelSlot" title="'.$Title.'" style="'.$Style.'"></span> '.$Title;
 	}
 	public function RetrieveAccessory($html, $Type, $Manufacturer, $Name, $splitcolor=FALSE) {
 		switch($Type) {
