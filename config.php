@@ -4,6 +4,7 @@
 	define('_BETA_',					0);
 	define('_RESTRICT_', 				0);
 	define('_IP_',						'***');
+	define('_Windows_',				TRUE);
 
 ############################
 #						   #
@@ -14,7 +15,7 @@
 	if(_BETA_ == 1) {
 		define('_Domain_', 					'http://beta.fixturesfinder.com');
 	} else {
-		define('_Domain_', 					'https://fixturesfinder.com');
+		define('_Domain_', 					'http://fixturefinder');
 	}
 
 	define('_CDN_',							'http://m-pc.fixturesfinder.com/');
@@ -52,10 +53,10 @@
 		define('_MPCLib_', '../m-pc/FixtureLibrary/');
 	} else {
 		//Connection Parameter
-		define('db_host', '***');
-		define('db_user', '***');
-		define('db_pass', '***');
-		define('db_name', '***');
+		define('db_host', 'localhost');
+		define('db_user', 'root');
+		define('db_pass', '');
+		define('db_name', 'fixturesfinder');
 
 		//MPC Library
 		define('_MPCLib_', 'm-pc/FixtureLibrary/');
@@ -63,8 +64,8 @@
 	}
 
 	//Admin Connection
-	define('_admin_salt_', 	'***');
-	define('adminPass', 	crypt('***', _admin_salt_));
+	define('_admin_salt_', 	'12345');
+	define('adminPass', 	crypt('', _admin_salt_));
 
 ############################
 #						   #
@@ -76,7 +77,7 @@
 	if(_BETA_ == 1) {
 		define('_HTTPS_',						0);
 	} else {
-		define('_HTTPS_',						1);
+		define('_HTTPS_',						0);
 	}
 	define('_DefaultNbParameters_',			47);
 	define('_MedFixtureFound_',				250);

@@ -249,7 +249,7 @@ function ReplaceSlot($ChannelID, $xml, $SlotID) {
 			$SlotID = str_replace('[50]:', '-', $SlotID);
 			$WheelInfos = $xml->xpath('//Physics/Wheel[@label="'.$ChannelID.'"]/WheelAccessory[@slot="'.$SlotID.'"]');
 			if(count($WheelInfos) > 0) {
-				$ValueContent = $DMXChartManager->RetrieveAccessory('span', $TypeWheel, $WheelInfos[0]['manufacturer'], $WheelInfos[0]['id']).' '.$WheelInfos[0]['id'];
+				$ValueContent = $DMXChartManager->RetrieveAccessory('span', $TypeWheel, $WheelInfos[0]['manufacturer'], $WheelInfos[0]['id']);
 			}
 		}
 	}
@@ -261,7 +261,7 @@ function ReplaceSlot($ChannelID, $xml, $SlotID) {
 }
 // This function will parse the XML file provided and will compute the profile for store into database
 function SaveDMXChart($infos, $xml) {
-	global $DMXChartManager, $BreakAtCount, $FolderLib;
+	global $DMXChartManager, $BreakAt, $BreakAtCount, $FolderLib;
 	$TotalChannel = 0;
 	$TotalWheel = 0;
 	$PrevWheelName = '';
@@ -589,8 +589,8 @@ if(isset($_POST['parse']) AND hash_equals(adminPass, crypt($_POST['parse'], _adm
 		}
 		$Personality = 'Personalities';
 		$Accessories = 'AccessoriesIndex';
-		$regex = '/(.*)\/(.*)\/(.*)\.xml/i';
-		$regexAccessories = '/(.*)\/(.*)\.xml/i';
+		$regex = '/(.*)[\/|\\\](.*)[\/|\\\](.*)\.xml/i';
+		$regexAccessories = '/(.*)[\/|\\\](.*)\.xml/i';
 		$regexExtractColor = '/\(([0-9]{1,3}) ?\, ?([0-9]{1,3}) ?\, ?([0-9]{1,3}) ?\)/i';
 		//$Folders = array('2014-07-14', '2014-09-10', '2014-11-01', '2014-11-14', '2015-02-23', '2015-05-24', '2015-06-20', '2015-10-01', '2015-12-17', '2016-03-01', '2016-07-11', '2016-08-24', '2016-10-17', '2017-01-26', '2017-04-06', '2017-07-13', '2017-09-17', '2017-11-28');
 		$Folders = array(_DateLibrary_);
@@ -615,7 +615,7 @@ if(isset($_POST['parse']) AND hash_equals(adminPass, crypt($_POST['parse'], _adm
 			$database = array();
 			foreach($sit as $file) {
 				if(!$file->isDir()) {
-					$PathName = str_replace('m-pc/'.$FolderLib.'-FixtureLibrary/', '', $file->getPathname());
+					$PathName = str_replace('m-pc/'.$FolderLib.'-FixtureLibrary'.((_Windows_) ? '\\' : '/'), '', $file->getPathname());
 					if((sFixt OR sPreset) AND preg_match($regex, $PathName, $Matches)) {
 						//Personnality Fixture Find found
 						if($Matches[3] == $Personality) {

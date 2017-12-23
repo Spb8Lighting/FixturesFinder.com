@@ -132,7 +132,7 @@ if(!$_POST[_GetPage_]) {
 </head>
 <body>
 	<h1><?php echo (($_GET['page'] == 'home') ? '<span><a class="img" href="#quicksearch"><img title="Display Menu" src="img/mpc-icon.png" /></a></span> ' : ''); ?><a href="./" title="Martin M-PC Fixtures Finder tool online"><?php echo _IndexTitle_; ?></a><span class="linesearch"></span></h1>
-	<?php
+<?php
 }
 	if($FixturePage>0) {
 		if(file_exists($CacheNameBody)) {
@@ -165,7 +165,7 @@ if(!$_POST[_GetPage_]) {
 			default:
 				break;
 		}
-		
+
 	} else {
 		require_once('page.index.php');
 	}

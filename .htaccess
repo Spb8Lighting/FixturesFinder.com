@@ -1,19 +1,11 @@
-<FilesMatch ".(ttf|otf|woff)$">
-    Header set Access-Control-Allow-Origin "*"
-</FilesMatch>
-Options -Multiviews
-RewriteEngine On
-RewriteBase /
-# Rewriting d'url
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php?page=$1 [QSA,L]
+Options +FollowSymLinks
+RewriteEngine on
 
-# Gestion d'erreur
+#Sub-dir e.g: /cmsms
+#RewriteBase /
+#
+# 301 Redirect all requests that don't contain a dot or trailing slash to
+# include a trailing slash
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-ErrorDocument 400 /oops-erreur
-ErrorDocument 401 /oops-erreur
-ErrorDocument 403 /oops-erreur
-ErrorDocument 404 /oops-erreur
-ErrorDocument 500 /oops-erreur 
+RewriteRule ^(.+)$ index.php?page=$1 [QSA]
