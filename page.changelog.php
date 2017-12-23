@@ -3,6 +3,11 @@
 	<div class="display list changelog">
 <?php
 $Changelog = array(
+	'2017-12-23' => array(
+					'FIXED|Color/Gobo/Animation presets were not well displayed on certain fixture profile',
+					'FIXED|Color/Gobo/Animation presets were not always having the right naming',
+					'FIXED|Color/Gobo/Animation presets was only present once in the complete fixture chart where it can be needed to displayed several times'
+	),
 	'2017-12-21' => array(
 					'ADDED|The searchs are now cached on the server to avoid Database overload. It reduce by 50% the answer time'
 	),

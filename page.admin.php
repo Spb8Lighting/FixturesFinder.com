@@ -406,6 +406,10 @@ function SaveDMXChart($infos, $xml) {
 		}
 	}
 	ksort($infosParam);
+	/*$Keep = $infosParam['ch4details'];
+	unset($infosParam);
+	$infosParam = array();
+	$infosParam['ch4details'] = $Keep;*/
 	foreach($infosParam AS $ChannelID => $Ranges) {
 		$FInal = '';
 		foreach($Ranges AS $Range => $RangeContents) {
@@ -422,7 +426,7 @@ function SaveDMXChart($infos, $xml) {
 								$PrevDMXVal = $DMXName;
 								$FInal.= $DMXVal.'-';
 							} else {
-								$FInal.= $DMXVal.' '.$PrevDMXVal.' '.$DMXName."\n";
+								$FInal.= $DMXVal.' '.$PrevDMXVal.' '.$DMXName;
 							}
 						} else {
 							$FInal.= $DMXVal.' '.$DMXName."\n";
@@ -445,7 +449,7 @@ function SaveDMXChart($infos, $xml) {
 								$PrevDMXVal = $DMXName;
 								$FInal.= $DMXVal.'-';
 							} else {
-								$FInal.= $DMXVal.' '.$PrevDMXVal.'-'.$DMXName;
+								$FInal.= $DMXVal.' '.$PrevDMXVal.'-'.$DMXName.(($NbVal == 2) ? '' : "\n");
 								$PrevDMXVal = FALSE;
 							}
 						} else {
@@ -571,8 +575,15 @@ if(isset($_POST['parse']) AND hash_equals(adminPass, crypt($_POST['parse'], _adm
 		$feedback[] = 'Fixture updated with HTML Colors and Gobos!';
 	}
 	if(isset($_POST['scanfixture']) OR isset($_POST['scanpreset']) OR isset($_POST['scanpicture'])) {
+		if(isset($_POST['globalScan'])) {
+			define('sFullReleases', TRUE);
+		}else {
+			define('sFullReleases', FALSE);
+		}
 		if(isset($_POST['scanfixture'])) {
-			//$DMXChartManager->ResetTableFixture();
+			if(sFullReleases) {
+				$DMXChartManager->ResetTableFixture();
+			}
 			define('sFixt', TRUE);
 		} else {
 			define('sFixt', FALSE);
@@ -593,8 +604,11 @@ if(isset($_POST['parse']) AND hash_equals(adminPass, crypt($_POST['parse'], _adm
 		$regex = '/(.*)[\/|\\\](.*)[\/|\\\](.*)\.xml/i';
 		$regexAccessories = '/(.*)[\/|\\\](.*)\.xml/i';
 		$regexExtractColor = '/\(([0-9]{1,3}) ?\, ?([0-9]{1,3}) ?\, ?([0-9]{1,3}) ?\)/i';
-		//$Folders = array('2014-07-14', '2014-09-10', '2014-11-01', '2014-11-14', '2015-02-23', '2015-05-24', '2015-06-20', '2015-10-01', '2015-12-17', '2016-03-01', '2016-07-11', '2016-08-24', '2016-10-17', '2017-01-26', '2017-04-06', '2017-07-13', '2017-09-17', '2017-11-28');
-		$Folders = array(_DateLibrary_);
+		if(sFullReleases) {
+			$Folders = array('2014-07-14', '2014-09-10', '2014-11-01', '2014-11-14', '2015-02-23', '2015-05-24', '2015-06-20', '2015-10-01', '2015-12-17', '2016-03-01', '2016-07-11', '2016-08-24', '2016-10-17', '2017-01-26', '2017-04-06', '2017-07-13', '2017-09-17', '2017-11-28');
+		} else {
+			$Folders = array(_DateLibrary_);
+		}
 		class SortedIterator extends SplHeap {
 			public function __construct(Iterator $iterator) {
 				foreach ($iterator as $item) {
@@ -733,236 +747,18 @@ if(isset($_POST['parse']) AND hash_equals(adminPass, crypt($_POST['parse'], _adm
 		}
 	}
 }
-?>
-<form method="post">
+require_once('./views/form.admin.html');
+if(count($feedback) > 0) {
+	?>
 	<div>
 		<fieldset>
-			<h2>Scans</h2>
-			<div>
-				<div>
-					<label for="scanfixture">
-						🗃 Fixtures
-						<span>1 - Scan the fixtures profiles</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="scanfixture" name="scanfixture" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="scanpreset">
-						🗃 Fixtures Presets
-						<span>2 - Scan the fixtures preset</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="scanpreset" name="scanpreset" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="scanpicture">
-						🗃 Pictures
-						<span>3 - Scan the manufacturers pictures</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="scanpicture" name="scanpicture" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="updatefixture">
-						🗃 Fixtures Pictures
-						<span>4 - Update Fixture with Pictures</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="updatefixture" name="updatefixture" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="reparameters">
-						📒 DMX Attributs
-						<span>5 - Activate the DMX Attribut building</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="reparameters" name="reparameters" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="checkEvol">
-						🗃 Fixture Changelog
-						<span>6 - Compute Fixture Changelog</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="checkEvol" name="checkEvol" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="restats">
-						📈 Statistics
-						<span>7 - Compute Statistics Infos</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="restats" name="restats" value="1" />
-				</div>
-			</div>
+			<h2>Actions finished</h2>
+			<ul>
+				<li><?php echo implode('</li><li>', $feedback); ?></li>
+			</ul>
 		</fieldset>
-		<fieldset>
-			<h2>Quality</h2>
-			<div>
-				<div>
-					<label>
-						File system
-						<span>File system report</span>
-					</label>
-				</div>
-				<div>
-					<a href="./<?php echo _QualityScan_; ?>">Global file report</a>
-				</div>
-			</div>
-			<div>
-				<div>
-					<label>
-						Fixtures Profile
-						<span>Fixture Picture and Gobo Quality</span>
-					</label>
-				</div>
-				<div>
-					<a href="./<?php echo _Quality_; ?>">Fixture Quality report</a>
-				</div>
-			</div>
-		</fieldset>
-		<fieldset>
-			<h2>Referencing</h2>
-			<div>
-				<div>
-					<label for="resitemap">
-						🖧 Renew Sitemap
-						<span>~1 minute</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="resitemap" name="resitemap" value="1" />
-				</div>
-			</div>
-		</fieldset>
-		<fieldset>
-			<h2>Cache Management</h2>
-			<div>
-				<div>
-					<label for="cleancache">
-						📁 Clean all caches
-						<span>less than a minute</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="cleancache" name="cleancache" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="cleancacheChangelog">
-						🗍 Clean Changelog cache
-						<span>less than a second</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="cleancacheChangelog" name="cleancacheChangelog" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="cleancacheFixtureChangelog">
-						🗍 Clean Fixture Changelog cache
-						<span>less than a second</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="cleancacheFixtureChangelog" name="cleancacheFixtureChangelog" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="cleancacheFixtureList">
-						🗍 Clean Fixture list cache
-						<span>less than a second</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="cleancacheFixtureList" name="cleancacheFixtureList" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="cleancacheFixtureDetail">
-						🗍 Clean Fixture detail cache
-						<span>less than a second</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="cleancacheFixtureDetail" name="cleancacheFixtureDetail" value="1" />
-				</div>
-			</div>
-			<div>
-				<div>
-					<label for="cleancacheSearch">
-						🗍 Clean Search Cache
-						<span>less than a second</span>
-					</label>
-				</div>
-				<div>
-					<input type="checkbox" id="cleancacheSearch" name="cleancacheSearch" value="1" />
-				</div>
-			</div>
-			</fieldset>
-			<fieldset>
-				<h2>Security</h2>
-				<div>
-					<div>
-						<label for="parse">
-							🔒 Password
-							<span>It is an admin part :)</span>
-						</label>
-					</div>
-					<div>
-						<input type="password" name="parse" id="parse"/>
-					</div>
-				</div>
-
-				<div>
-					<div>
-						<label for="submit">
-							Ready?
-							<span>Let's go!</span>
-						</label>
-					</div>
-					<div>
-						<input name="submit" id="submit" type="submit" value="Have some fun ..." />
-					</div>
-				</div>
-			</fieldset>
-		</div>
-		<?php
-		if(count($feedback) > 0) {
-			?>
-			<div>
-				<fieldset>
-					<h2>Actions finished</h2>
-					<ul>
-						<li><?php echo implode('</li><li>', $feedback); ?></li>
-					</ul>
-				</fieldset>
-			</div>
-			<?php
-		}
-		?>
+	</div>
+	<?php
+}
+	?>
 	</form>
