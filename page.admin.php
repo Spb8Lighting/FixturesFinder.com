@@ -354,12 +354,12 @@ function SaveDMXChart($infos, $xml) {
 	}
 	$infosParam = array();
 	$Parameters = $xml->xpath("//Parameter");
-	$RealNameID =  $xml->xpath("//Parameter/parent::Wheel");
 	foreach($Parameters AS $Parameter) {
 		$ParameterName = (string) $Parameter['name'];
 		$ParameterRes = (int) $Parameter['resolution'];
 		foreach($Parameter->Protocol AS $Protocol) {
 			$ProtocolIDREF = (string) $Protocol['IDREF'];
+			$RealNameID =  $xml->xpath("//Parameter[@name=\"".$ParameterName."\"]/Protocol[@IDREF=\"".$ProtocolIDREF."\"]/ancestor::Wheel");
 			if(strpos($ProtocolIDREF,':') > 0) {
 				list($Label, $RealIDRef) = explode(':', $ProtocolIDREF);
 				$IDRef = $xml->xpath("//Protocol[@label=\"".$Label."\"]/Channel[@ID=\"".$RealIDRef."\"]");
@@ -376,6 +376,7 @@ function SaveDMXChart($infos, $xml) {
 				foreach($Parameter->Range AS $Range) {
 					$Is16Bits = ($ParameterRes == 16 OR (int) $Range['channelMinValue'] > 255 OR (int) $Range['channelMaxValue'] > 255) ? TRUE : FALSE;
 					$Plage = Digit3($Range['channelMinValue'], $Is16Bits).'-'.Digit3($Range['channelMaxValue'], $Is16Bits);
+					$RightWheelName = isset($RealNameID[0]['label']) ? $RealNameID[0]['label'] : $IDRef[0]['ID'];
 					if($Range['dynamic'] == 'linear') {
 						if(count($Range->Value) > 0) {
 							foreach($Range->Value AS $Value) {
@@ -386,7 +387,7 @@ function SaveDMXChart($infos, $xml) {
 						if(count($Range->Slot) > 0) {
 							foreach($Range->Slot AS $Value) {
 								$Is16Bits = ($ParameterRes == 16 OR (int) $Value['channelRangePos'] > 255) ? TRUE : FALSE;
-								$ValueContent = ReplaceSlot((isset($IDRef[0]['ID']) ? $IDRef[0]['ID'] : $RealNameID[0]['label']), $xml, $Value['nr']);
+								$ValueContent = ReplaceSlot($RightWheelName, $xml, $Value['nr']);
 								$ValueRange[$Plage][$ParameterName][Digit3($Value['channelRangePos'], $Is16Bits)] = $ValueContent;
 							}
 						}
@@ -394,7 +395,7 @@ function SaveDMXChart($infos, $xml) {
 						if(count($Range->Value) > 0) {
 							$ValueRange[$Plage][$ParameterName][$Plage] = CheckSemanticValue($Range->Value, false, $infos['manufacturer'], $infos['fixture']);
 						} elseif(count($Range->Slot) > 0) {
-							$ValueContent = ReplaceSlot((isset($IDRef[0]['ID']) ? $IDRef[0]['ID'] : $RealNameID[0]['label']), $xml, $Range->Slot['nr']);
+							$ValueContent = ReplaceSlot($RightWheelName, $xml, $Range->Slot['nr']);
 							$ValueRange[$Plage][$ParameterName][$Plage] = $ValueContent;
 						}
 					}
