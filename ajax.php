@@ -65,7 +65,7 @@ if(isset($_POST)) {
 	} else {
 		$data = array('error' => _ErrDirectAccess_);
 	}
-if($_POST[_DEBUG_]) {
+if(isset($_POST[_DEBUG_])) {
 	$data[_DEBUG_] = $DMXChartManager->Debug();
 }
 echo json_encode($data);
