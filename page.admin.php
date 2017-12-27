@@ -78,6 +78,10 @@ function UpdateStats() {
 // This function check if the file exists whatever is the case is not good. But it can be a strict search by setting the 2nd argument to TRUE
 function fileExists($fileName, $caseSensitive=true) {
 	global $DMXChartManager, $FolderLib;
+
+	if($caseSensitive == 'FORCED') {
+		GOTO FORCED;
+	}
 	//If the file exists just return it, that's easy!
 	if(file_exists($fileName)) {
 		return $fileName;
@@ -90,6 +94,7 @@ function fileExists($fileName, $caseSensitive=true) {
 		}
 		return false;
 	}
+	FORCED:
 	// Handle case insensitive requests
 	$directoryName = dirname($fileName);
 	$fileArray = glob($directoryName . '/*', GLOB_NOSORT);
@@ -499,7 +504,7 @@ function SetAndSavePicture($type, $AccessoriesXml, $Manufacturer) {
 			$PictureFile = (string) trim($Picture);
 			if(strlen($PictureFile) > 0) {
 				$SearchFileName = 'm-pc/'.$FolderLib.'-FixtureLibrary/'.$Manufacturer.'/'.$PictureFile;
-				$RealSearchFileName = fileExists($SearchFileName, FALSE);
+				$RealSearchFileName = fileExists($SearchFileName, 'FORCED');
 				if($RealSearchFileName != $SearchFileName) {
 					if(!empty($RealSearchFileName)) {
 						$md5 = md5_file($RealSearchFileName);
