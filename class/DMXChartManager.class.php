@@ -350,7 +350,7 @@ class DMXChartManager
 					return $this->HTMLAccessory($html, $Title, $Style);
 				}
 			} elseif(!empty($Picture[0]['Name']) OR !empty($Picture[0]['orderid'])) {
-				$Style = 'background-image: url(\''.str_replace(_MPCLib_, _CDN_, $Picture[0]['Img']).'\');';
+				$Style = 'background-image: url(\''.str_replace('m-pc/', _CDN_, $Picture[0]['Img']).'\');';
 				return $this->HTMLAccessory($html, $Title, $Style);
 			} else {
 				return FALSE;
