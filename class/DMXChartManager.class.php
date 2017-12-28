@@ -1,7 +1,7 @@
 ﻿<?php
 class DMXChartManager
 	{
-	// Mode per fixture: SELECT `Manufacturer`, `Fixture`, COUNT(`mode`) AS `NbMode` FROM `Fixtures` GROUP BY `Manufacturer`, `Fixture` ORDER BY COUNT(`mode`) DESC 
+	// Mode per fixture: SELECT `Manufacturer`, `Fixture`, COUNT(`mode`) AS `NbMode` FROM `Fixtures` GROUP BY `Manufacturer`, `Fixture` ORDER BY COUNT(`mode`) DESC
 	// Max Mode of one fixture: SELECT `Manufacturer`, `Fixture`, `channels`, COUNT(`mode`) AS `NbMaxMode` FROM `Fixtures` GROUP BY `Manufacturer`, `Fixture` HAVING COUNT(`mode`) >= ALL (SELECT COUNT(`mode`) FROM `Fixtures` GROUP BY `Manufacturer`, `Fixture`)
 	// Max Channel of one fixture: SELECT `Manufacturer`, `Fixture`, `mode`, MAX(`channels`) AS `NbMaxCh` FROM `Fixtures`
 	private $_db;
@@ -11,11 +11,11 @@ class DMXChartManager
 		{
 		$this->setDb($db);
 		}
-		
+
 	# Getters
 		public function debug() { return $this->_debug; }
 	# /Getters
-		
+
 	# Setters
 		public function setDebug($debug)
 				{
@@ -96,7 +96,7 @@ class DMXChartManager
 			SELECT
 				E.`Img`, E.`Name`, E.`orderid`, E.`Manufacturer`
 			FROM
-				`Index_Gobo` AS S	
+				`Index_Gobo` AS S
 			JOIN `Index_Gobo` AS E
 				ON S.`md5` = E.`md5`
 			WHERE
@@ -117,7 +117,7 @@ class DMXChartManager
 			SELECT
 				E.`Img`, E.`Name`, E.`orderid`, E.`Manufacturer`
 			FROM
-				`Index_Animation` AS S	
+				`Index_Animation` AS S
 			JOIN `Index_Animation` AS E
 				ON S.`md5` = E.`md5`
 			WHERE
@@ -202,10 +202,10 @@ class DMXChartManager
 				{
 				return FALSE;
 				}
-	}	
+	}
 	public function ConvertDate($date) {
 		$r = new DateTime($date);
-		return $r->format('d F Y'); 
+		return $r->format('d F Y');
 	}
 	public function GetFixtureDates(DMXChart $DMXChart) {
 		$query = "	SELECT MIN(`lastdate`) AS 'lastdate' FROM `Fixtures` WHERE `Manufacturer` = :manufacturer AND `Fixture` = :fixture AND `status` = 'added'
@@ -491,7 +491,7 @@ class DMXChartManager
 					}
 			}
 		$content = substr($content, 0, -5);
-		
+
 		return $content;
 		}
 	public function FixtureInfos(DMXChart $DMXChart) {
@@ -624,11 +624,11 @@ class DMXChartManager
 						$this->UpdateFixture($ActChart);
 					}
 				}
-			
+
 			}
 		}
 	}
-	
+
 	public function CompareChart(DMXChart $New, DMXChart $Prev) {
 		$Evol = array();
 		if($Prev->mh() != $New->mh()) {
@@ -699,7 +699,7 @@ class DMXChartManager
 				// $Evol[] = 'Channel n°'.$i.' presets has been updated';
 			// }
 		}
-		unset($Prev, $New);			 
+		unset($Prev, $New);
 		return ((count($Evol) > 0) ? implode("\n", $Evol) : FALSE);
 	}
 	public function FindFixture(DMXChart $DMXChart, $NbChannel, $searchmode, $maxchannel=false, $displaymode=false) {
@@ -883,11 +883,11 @@ class DMXChartManager
 		$data = $prep->fetch(PDO::FETCH_ASSOC);
 		$prep->closeCursor();
 		$prep = NULL;
-		
+
 		$NbManufacturer = $data['Manufacturer'];
 		$NbFixtures = $data['Fixture'];
 		$NbDMXCharts = $data['Mode'];
-		
+
 		$query = 'SELECT `Manufacturer`, `Fixture`, `mode`, `channels` AS  `NbMaxChannel` FROM `Fixtures` GROUP BY `Manufacturer`, `Fixture` HAVING MAX(`channels`) >= ALL (SELECT MAX(`channels`) FROM `Fixtures` WHERE `lastdate` = :lastdate GROUP BY `Manufacturer`, `Fixture`);';
 		$prep = $this->_db->prepare($query);
 		$prep->bindValue(':lastdate', _DateLibrary_, PDO::PARAM_STR);
@@ -895,9 +895,9 @@ class DMXChartManager
 		$data = $prep->fetch(PDO::FETCH_ASSOC);
 		$prep->closeCursor();
 		$prep = NULL;
-		
+
 		$NbMaxChannel = '<a pop href="'.FixtureURL($data['Manufacturer'], $data['Fixture']).'">'.$data['NbMaxChannel'].'ch</a>';
-		
+
 		$query = 'SELECT `Manufacturer`, `Fixture`, COUNT(`mode`) AS `NbMaxMode` FROM `Fixtures` GROUP BY `Manufacturer`, `Fixture` HAVING COUNT(`mode`) >= ALL (SELECT COUNT(`mode`) FROM `Fixtures` WHERE `lastdate` = :lastdate GROUP BY `Manufacturer`, `Fixture`);';
 		$prep = $this->_db->prepare($query);
 		$prep->bindValue(':lastdate', _DateLibrary_, PDO::PARAM_STR);
@@ -905,9 +905,9 @@ class DMXChartManager
 		$data = $prep->fetch(PDO::FETCH_ASSOC);
 		$prep->closeCursor();
 		$prep = NULL;
-				
+
 		$NbMaxMode = '<a pop href="'.FixtureURL($data['Manufacturer'], $data['Fixture']).'">'.$data['NbMaxMode'].' modes</a>';
-				
+
 		$query = 'INSERT INTO `Stats` (`NbManufacturer`, `NbFixtures`, `NbDMXCharts`, `NbMaxChannel`, `NbMaxMode`) VALUES (:NbManufacturer, :NbFixtures, :NbDMXCharts, :NbMaxChannel, :NbMaxMode);';
 		$prep = $this->_db->prepare($query);
 		$prep->bindValue(':NbManufacturer', $NbManufacturer, PDO::PARAM_INT);
@@ -918,7 +918,7 @@ class DMXChartManager
 		$prep->execute();
 		$prep->closeCursor();
 		$prep = NULL;
-		
+
 		return $this->GetStatsInfos();
 		}
 	public function DisplayAllManufacturer()
@@ -1001,7 +1001,7 @@ class DMXChartManager
 				break;
 			}
 		$prep = $this->_db->prepare($query);
-		
+
 		$prep->bindValue(':manufacturer', $MANUFAccessories->manufacturer(), PDO::PARAM_STR);
 		$prep->bindValue(':name', $MANUFAccessories->name(), PDO::PARAM_STR);
 		$prep->bindValue(':orderid', $MANUFAccessories->orderid(), PDO::PARAM_STR);
@@ -1027,7 +1027,7 @@ class DMXChartManager
 		$DMXChart->setWheelcolor($this->WriteWheel($DMXChart, _modeColor_));
 		$DMXChart->setWheelgobo($this->WriteWheel($DMXChart, _modeGobo_));
 		$DMXChart->setWheelanimation($this->WriteWheel($DMXChart, _modeAnimation_));
-		
+
 		//Store the result
 		$query = 'UPDATE `Fixtures` SET `wheelcolor` = :wheelcolor, `wheelgobo` = :wheelgobo, `wheelanimation` = :wheelanimation WHERE `Manufacturer` = :manufacturer AND `Fixture` = :fixture;';
 		$prep = $this->_db->prepare($query);
@@ -1052,11 +1052,11 @@ class DMXChartManager
 				break;
 			}
 		}
-		$query = substr($query, 0, -1).' WHERE `manufacturer` = :manufacturer AND `fixture` = :fixture AND `mode` = :mode AND `lastdate` = :lastdate'; 
-		//$Rquery = substr($Rquery, 0, -1).' WHERE `manufacturer` = \''.$DMXChart->manufacturer().'\' AND `fixture` = \''.$DMXChart->fixture().'\' AND `mode` = \''.$DMXChart->mode().'\' AND `lastdate` = \''.$DMXChart->lastdate().'\''; 
-		
+		$query = substr($query, 0, -1).' WHERE `manufacturer` = :manufacturer AND `fixture` = :fixture AND `mode` = :mode AND `lastdate` = :lastdate';
+		//$Rquery = substr($Rquery, 0, -1).' WHERE `manufacturer` = \''.$DMXChart->manufacturer().'\' AND `fixture` = \''.$DMXChart->fixture().'\' AND `mode` = \''.$DMXChart->mode().'\' AND `lastdate` = \''.$DMXChart->lastdate().'\'';
+
 		$prep = $this->_db->prepare($query);
-		
+
 		$prep->bindValue(':manufacturer', $DMXChart->manufacturer(), PDO::PARAM_STR);
 		$prep->bindValue(':fixture', $DMXChart->fixture(), PDO::PARAM_STR);
 		$prep->bindValue(':lastdate', $DMXChart->lastdate(), PDO::PARAM_STR);
@@ -1065,9 +1065,9 @@ class DMXChartManager
 			if($DMXChart->{'ch'.$i.'details'}() !== NULL) {
 				$prep->bindValue(':ch'.$i.'details', $DMXChart->{'ch'.$i.'details'}(), PDO::PARAM_STR);
 			} else {
-				
+
 				break;
-			}	
+			}
 		}
 		$prep->execute();
 		$prep->closeCursor();
@@ -1077,7 +1077,7 @@ class DMXChartManager
 	public function Save(DMXChart $DMXChart) {
 		$startQuery = 'INSERT INTO `Fixtures` (`Manufacturer`,`Fixture`,`status`,`evol`,`lastdate`,`mh`,`mode`, `channels`,`wheel`,`wheelcolor`,`wheelgobo`,`wheelanimation`,';
 		$endQuery = 'VALUES (:manufacturer,:fixture,:status,:evol,:lastdate,:mh,:mode,:channels,:wheel,:wheelcolor,:wheelgobo,:wheelanimation,';
-		
+
 		$Channels = array('Slots', 'Details');
 		foreach($Channels AS $Channel) {
 			$Wheels = array('Color', 'Gobo', 'Animation');
@@ -1105,7 +1105,7 @@ class DMXChartManager
 				}
 			}
 		}
-		$query = substr($startQuery, 0, -1).') '.substr($endQuery, 0, -1).')'; 
+		$query = substr($startQuery, 0, -1).') '.substr($endQuery, 0, -1).')';
 		$prep = $this->_db->prepare($query);
 		$prep->bindValue(':manufacturer', $DMXChart->manufacturer(), PDO::PARAM_STR);
 		$prep->bindValue(':fixture', $DMXChart->fixture(), PDO::PARAM_STR);
@@ -1115,7 +1115,7 @@ class DMXChartManager
 		$prep->bindValue(':mh', $DMXChart->mh(), PDO::PARAM_BOOL);
 		$prep->bindValue(':mode', $DMXChart->mode(), PDO::PARAM_STR);
 		$prep->bindValue(':channels', $DMXChart->channels(), PDO::PARAM_INT);
-		
+
 		// $query = str_replace(':manufacturer,', '"'.$DMXChart->manufacturer().'",', $query);
 		// $query = str_replace(':fixture,', '"'.$DMXChart->fixture().'",', $query);
 		// $query = str_replace(':status,', '"'.$DMXChart->status().'",', $query);
@@ -1124,7 +1124,7 @@ class DMXChartManager
 		// $query = str_replace(':mh', ($DMXChart->mh()) ? 'TRUE' : 'FALSE', $query);
 		// $query = str_replace(':mode,', '"'.$DMXChart->mode().'",', $query);
 		// $query = str_replace(':channels,', '"'.$DMXChart->channels().'",', $query);
-		
+
 		$Channels = array('Slots', 'Details');
 		foreach($Channels AS $Channel) {
 			$Wheels = array('Color', 'Gobo', 'Animation');
@@ -1144,12 +1144,12 @@ class DMXChartManager
 		$prep->bindValue(':wheelcolor', $DMXChart->wheelcolor(), PDO::PARAM_STR);
 		$prep->bindValue(':wheelgobo', $DMXChart->wheelgobo(), PDO::PARAM_STR);
 		$prep->bindValue(':wheelanimation', $DMXChart->wheelanimation(), PDO::PARAM_STR);
-		
+
 		// $query = str_replace(':wheel,', '"'.$DMXChart->wheel().'",', $query);
 		// $query = str_replace(':wheelcolor,', '"'.$DMXChart->wheelcolor().'",', $query);
 		// $query = str_replace(':wheelgobo,', '"'.$DMXChart->wheelgobo().'",', $query);
 		// $query = str_replace(':wheelanimation,', '"'.$DMXChart->wheelanimation().'",', $query);
-		
+
 		$Channels = array('Details', '');
 		foreach($Channels AS $Channel) {
 			for ($i = 1; $i <= 512; $i++) {
@@ -1171,231 +1171,225 @@ class DMXChartManager
 	public function SetParameters() {
 		$query = '';
 		for ($i = 1; $i <= 512; $i++) {
-			$query.= "\n".'SELECT DISTINCT `ch'.$i.'` FROM `Fixtures` WHERE `lastdate` = :lastdate'."\n".'UNION';
+			$query.= "\n".'SELECT DISTINCT `ch'.$i.'` FROM `Fixtures` WHERE `lastdate` = :lastdate'."\n".' UNION ';
 		}
-		$query = substr($query, 0, -5);
-		
-			$prep = $this->_db->prepare($query);
-			$prep->bindValue(':lastdate', _DateLibrary_, PDO::PARAM_STR);
-			$prep->execute();
-			$data = $prep->fetchAll(PDO::FETCH_ASSOC);
-			$prep->closeCursor();
-			$prep = NULL;
-			$count = count($data);
-			$query = "INSERT INTO `Params` (`parameter`,`correct`,`position`) VALUES ";
-			for($i=0; $i<$count;$i++)
-				{
-				$query.= '(:v'.$i.',:c'.$i.',:p'.$i.'),';
-				}
-			$query = substr($query, 0, -1).';';
-			$prep = $this->_db->prepare($query);
-			for($i=0; $i<$count;$i++)
-				{
-				$correct = strtolower(preg_replace('/[0-9]+/', '', $data[$i]['ch1']));
-				switch(strtolower($data[$i]['ch1']))
-					{
-					case 'dimmer':
-					case 'intensity':
-						$correct = 'Intensity';
-						$pos = 0;
-						break;
-					case 'intensity fine':
-						$correct = 'Intensity fine';
-						$pos = 1;
-						break;
-					case 'strobe':
-						$pos = 2;
-						break;
-					case 'shutter':
-						$pos = 3;
-						break;
-					case 'x':
-					case 'pan':
-						$correct = 'Pan';
-						$pos = 4;
-						break;
-					case 'x fine':
-					case 'pan fine':
-						$correct = 'Pan fine';
-						$pos = 5;
-						break;
-					case 'pan rot':
-						$correct = 'Pan Rot';
-						$pos = 6;
-						break;
-					case 'y':
-					case 'tilt':
-						$correct = 'Tilt';
-						$pos = 7;
-						break;
-					case 'y fine':
-					case 'tilt fine':
-						$correct = 'Tilt fine';
-						$pos = 8;
-						break;
-					case 'tilt rot':
-						$correct = 'Tilt Rot';
-						$pos = 9;
-						break;
-					case 'pt speed':
-						$correct = 'PT speed';
-						$pos = 10;
-						break;
-					case 'color':
-						$pos = 11;
-						break;
-					case 'color macro':
-						$correct = 'Color Macro';
-						$pos = 12;
-						break;
-					case 'red':
-						$pos = 13;
-						break;
-					case 'red fine':
-						$pos = 14;
-						break;
-					case 'green':
-						$pos = 15;
-						break;
-					case 'green fine':
-						$pos = 16;
-						break;
-					case 'blue':
-						$pos = 17;
-						break;
-					case 'blue fine':
-						$pos = 18;
-						break;
-					case 'white':
-						$pos = 19;
-						break;
-					case 'white fine':
-						$pos = 20;
-						break;
-					case 'amber':
-						$pos = 21;
-						break;
-					case 'amber fine':
-						$pos = 22;
-						break;
-					case 'uv':
-						$correct = 'UV';
-						$pos = 23;
-						break;
-					case 'uv fine':
-						$correct = 'UV Fine';
-						$pos = 24;
-						break;
-					case 'cyan':
-						$pos = 25;
-						break;
-					case 'cyan fine':
-						$pos = 26;
-						break;
-					case 'magenta':
-						$pos = 27;
-						break;
-					case 'magenta fine':
-						$pos = 28;
-						break;
-					case 'yellow':
-						$pos = 29;
-						break;
-					case 'yellow fine':
-						$pos = 30;
-						break;
-					case 'ctc':
-						$correct = 'CTC';
-						$pos = 31;
-						break;
-					case 'ctc fine':
-						$correct = 'CTC Fine';
-						$pos = 32;
-						break;
-					case 'cto':
-						$correct = 'CTO';
-						$pos = 33;
-						break;
-					case 'cto fine':
-						$correct = 'CTO Fine';
-						$pos = 34;
-						break;
-					case 'gobo':
-						$pos = 35;
-						break;
-					case 'gobo rot':
-						$correct = 'Gobo Rot';
-						$pos = 36;
-						break;
-					case 'prism':
-						$pos = 37;
-						break;
-					case 'prism rot':
-						$correct = 'Prism Rot';
-						$pos = 38;
-						break;
-					case 'zoom':
-						$pos = 39;
-						break;
-					case 'focus':
-						$pos = 40;
-						break;
-					case 'frost':
-						$pos = 41;
-						break;
-					case 'iris':
-						$pos = 42;
-						break;
-					case 'program':
-					case 'programs':
-					case 'macro':
-					case 'macros':
-						$correct = 'macro';
-						$pos = 43;
-						break;
-					case 'chase':
-						$pos = 44;
-						break;
-					case 'fx':
-						$correct = 'FX';
-						$pos = 45;
-						break;
-					case 'ctrl':
-						$pos = 46;
-						break;
-					default: 
-						$pos = $count;
-						break;
-					}
-				$prep->bindValue('v'.$i, $data[$i]['ch1'], PDO::PARAM_STR);
-				$prep->bindValue('c'.$i, $correct, PDO::PARAM_STR);
-				$prep->bindValue('p'.$i, $pos, PDO::PARAM_INT);
-				}
-			$prep->execute();
-			$prep->closeCursor();
-			$prep = NULL;
-			
-			$query = 'SELECT DISTINCT(`manufacturer`) AS name FROM `Fixtures` WHERE `lastdate` = :lastdate;';
-			$prep = $this->_db->prepare($query);
-			$prep->bindValue(':lastdate', _DateLibrary_, PDO::PARAM_STR);
-			$prep->execute();
-			$data = $prep->fetchAll(PDO::FETCH_ASSOC);
-			
-			$count = count($data);
-			$query = "INSERT INTO `Manufacturers` (`name`) VALUES ";
-			for($i=0; $i<$count;$i++)
-				{
-				$query.= '(:v'.$i.'),';
-				}
-			$query = substr($query, 0, -1).';';
-			$prep = $this->_db->prepare($query);
-			for($i=0; $i<$count;$i++)
-				{
-				$prep->bindValue('v'.$i, $data[$i]['name'], PDO::PARAM_STR);
-				}
-			$prep->execute();
-			$prep->closeCursor();
-			$prep = NULL;
+		$query = substr($query, 0, -7);
+		$prep = $this->_db->prepare($query);
+		$prep->bindValue(':lastdate', _DateLibrary_, PDO::PARAM_STR);
+		$prep->execute();
+		$data = $prep->fetchAll(PDO::FETCH_ASSOC);
+		$prep->closeCursor();
+		$prep = NULL;
+		$count = count($data);
+		$query = 'INSERT INTO `Params` (`parameter`,`correct`,`position`) VALUES ';
+		for($i=0; $i<$count;$i++) {
+			$query.= "\n".'(:v'.$i.',:c'.$i.',:p'.$i.'),';
+		}
+		$query = substr($query, 0, -1).';';
+		$prep = $this->_db->prepare($query);
+		for($i=0; $i<$count;$i++) {
+			$correct = strtolower(preg_replace('/[0-9]+/', '', $data[$i]['ch1']));
+			switch(strtolower($data[$i]['ch1'])) {
+				case 'dimmer':
+				case 'intensity':
+					$correct = 'Intensity';
+					$pos = 0;
+					break;
+				case 'intensity fine':
+					$correct = 'Intensity fine';
+					$pos = 1;
+					break;
+				case 'strobe':
+					$pos = 2;
+					break;
+				case 'shutter':
+					$pos = 3;
+					break;
+				case 'x':
+				case 'pan':
+					$correct = 'Pan';
+					$pos = 4;
+					break;
+				case 'x fine':
+				case 'pan fine':
+					$correct = 'Pan fine';
+					$pos = 5;
+					break;
+				case 'pan rot':
+					$correct = 'Pan Rot';
+					$pos = 6;
+					break;
+				case 'y':
+				case 'tilt':
+					$correct = 'Tilt';
+					$pos = 7;
+					break;
+				case 'y fine':
+				case 'tilt fine':
+					$correct = 'Tilt fine';
+					$pos = 8;
+					break;
+				case 'tilt rot':
+					$correct = 'Tilt Rot';
+					$pos = 9;
+					break;
+				case 'pt speed':
+					$correct = 'PT speed';
+					$pos = 10;
+					break;
+				case 'color':
+					$pos = 11;
+					break;
+				case 'color macro':
+					$correct = 'Color Macro';
+					$pos = 12;
+					break;
+				case 'red':
+					$pos = 13;
+					break;
+				case 'red fine':
+					$pos = 14;
+					break;
+				case 'green':
+					$pos = 15;
+					break;
+				case 'green fine':
+					$pos = 16;
+					break;
+				case 'blue':
+					$pos = 17;
+					break;
+				case 'blue fine':
+					$pos = 18;
+					break;
+				case 'white':
+					$pos = 19;
+					break;
+				case 'white fine':
+					$pos = 20;
+					break;
+				case 'amber':
+					$pos = 21;
+					break;
+				case 'amber fine':
+					$pos = 22;
+					break;
+				case 'uv':
+					$correct = 'UV';
+					$pos = 23;
+					break;
+				case 'uv fine':
+					$correct = 'UV Fine';
+					$pos = 24;
+					break;
+				case 'cyan':
+					$pos = 25;
+					break;
+				case 'cyan fine':
+					$pos = 26;
+					break;
+				case 'magenta':
+					$pos = 27;
+					break;
+				case 'magenta fine':
+					$pos = 28;
+					break;
+				case 'yellow':
+					$pos = 29;
+					break;
+				case 'yellow fine':
+					$pos = 30;
+					break;
+				case 'ctc':
+					$correct = 'CTC';
+					$pos = 31;
+					break;
+				case 'ctc fine':
+					$correct = 'CTC Fine';
+					$pos = 32;
+					break;
+				case 'cto':
+					$correct = 'CTO';
+					$pos = 33;
+					break;
+				case 'cto fine':
+					$correct = 'CTO Fine';
+					$pos = 34;
+					break;
+				case 'gobo':
+					$pos = 35;
+					break;
+				case 'gobo rot':
+					$correct = 'Gobo Rot';
+					$pos = 36;
+					break;
+				case 'prism':
+					$pos = 37;
+					break;
+				case 'prism rot':
+					$correct = 'Prism Rot';
+					$pos = 38;
+					break;
+				case 'zoom':
+					$pos = 39;
+					break;
+				case 'focus':
+					$pos = 40;
+					break;
+				case 'frost':
+					$pos = 41;
+					break;
+				case 'iris':
+					$pos = 42;
+					break;
+				case 'program':
+				case 'programs':
+				case 'macro':
+				case 'macros':
+					$correct = 'macro';
+					$pos = 43;
+					break;
+				case 'chase':
+					$pos = 44;
+					break;
+				case 'fx':
+					$correct = 'FX';
+					$pos = 45;
+					break;
+				case 'ctrl':
+					$pos = 46;
+					break;
+				default:
+					$pos = $count;
+					break;
+			}
+			$prep->bindValue('v'.$i, $data[$i]['ch1'], PDO::PARAM_STR);
+			$prep->bindValue('c'.$i, $correct, PDO::PARAM_STR);
+			$prep->bindValue('p'.$i, $pos, PDO::PARAM_INT);
+		}
+		$prep->execute();
+		$prep->closeCursor();
+		$prep = NULL;
+
+		$query = 'SELECT DISTINCT(`manufacturer`) AS name FROM `Fixtures` WHERE `lastdate` = :lastdate;';
+		$prep = $this->_db->prepare($query);
+		$prep->bindValue(':lastdate', _DateLibrary_, PDO::PARAM_STR);
+		$prep->execute();
+		$data = $prep->fetchAll(PDO::FETCH_ASSOC);
+
+		$count = count($data);
+		$query = 'INSERT INTO `Manufacturers` (`name`) VALUES ';
+		for($i=0; $i<$count;$i++) {
+			$query.= "\n".'(:v'.$i.'),';
+		}
+		$query = substr($query, 0, -1).';';
+		$prep = $this->_db->prepare($query);
+		for($i=0; $i<$count;$i++) {
+			$prep->bindValue('v'.$i, $data[$i]['name'], PDO::PARAM_STR);
+		}
+		$prep->execute();
+		$prep->closeCursor();
+		$prep = NULL;
 		}
 	}
 ?>

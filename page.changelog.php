@@ -3,6 +3,9 @@
 	<div class="display list changelog">
 <?php
 $Changelog = array(
+	'2017-12-28' => array(
+					'FIXED|Color/Gobo/Animation picture not well ingested from Windows OS'
+	),
 	'2017-12-23' => array(
 					'FIXED|Color/Gobo/Animation presets were not well displayed on certain fixture profile',
 					'FIXED|Color/Gobo/Animation presets were not always having the right naming',
