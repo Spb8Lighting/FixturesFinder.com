@@ -38,7 +38,7 @@ $(document).ready(function() {
 		obj = {}, p, idx;
 		for (var i=0, n=pairs.length; i < n; i++) {
 			p = pairs[i].split('=');
-			idx = p[0];
+			idx = p[0]; 
 			if (obj[idx] === undefined) {
 				obj[idx] = unescape(p[1]);
 			}else{
@@ -56,7 +56,7 @@ $(document).ready(function() {
 			_Debug_ = true;
 			Debug('Debug mode detected', 'log');
 		}
-		Debug([$Datas], 'info');
+		Debug([$Datas], 'info');	
 	}
 	if(window.location != window.parent.location) {
 		Debug('Iframe detected, add class iFrame to HTML', 'log');
@@ -66,8 +66,11 @@ $(document).ready(function() {
 	$Title = $('title'),
 	$Reset = $('#Reset'),
 	$HomeLink = $('h1>a'),
-	$QuickSearchLink = $('h1>span>a'),
+	$QuickSearchLink = $('h1>span:first-child>a'),
 	$QuickSearchBOX = $('#quicksearch'),
+	$SettingsLink = $('#settings a'),
+	$SettingsBox = $('#Preferences'),
+	$SettingsBoxLink = $('a[href="#Preferences"]'),
 	$Line = $('.linesearch'),
 	$Form = $('form'),
 	<?php echo _Channels_; ?>         = $('#<?php echo _Channels_; ?>'),
@@ -94,7 +97,7 @@ $(document).ready(function() {
 	timer2,
 	ActualLink = window.location.pathname,
 	DefaultSelect2 = 'span[id^="select2-SPB8-"]',
-	DefaultSelect = '<div id="chSPB8">'+
+	DefaultSelect = '<div id="chSPB8" data-option="">'+
 	"\t"+'<div class="label">#SPB8<span>Channel type</span></div>'+
 	"\t\t"+'<div><select data-default="<?php echo strtolower(_ValAny_); ?>" autocomplete="off" name="chSPB8">'+
 	"\t\t"+'</select></div>'+
@@ -140,11 +143,12 @@ $(document).ready(function() {
 	$.fn.AddSelect = function(ChRef) {
 		Debug('Function AddSelect(ChRef)', 'group');
 		Debug([ChRef], 'warn');
-			var Html = DefaultSelect.replace(/SPB8/gm, ChRef);
+			var Html = DefaultSelect.replace(/SPB8/gm, ChRef);	
 			Debug('Add new Select channel type', 'info');
 				this.append(Html);
 			Debug('Add autocomplete to this new Select', 'info');
-				$('select[name="ch'+ChRef+'"]').select2({data: DropDown});
+				$('select[name="ch'+ChRef+'"]').select2({data: DropDown, templateResult: formatState});
+				RemoveAutoFocus();
 		Debug('', 'groupend');
 	  return this;
 	};
@@ -161,7 +165,8 @@ $(document).ready(function() {
 	};
 	$.fn.CheckValueSelect = function() {
 		Debug('Function CheckValueSelect()', 'group');
-			var $this = this;
+			var $this = this,
+			$Parent = $this.parents('div').eq(1);
 			if(!!$this.val()) {
 				var $Val = $this.val().toLowerCase(),
 				$Name = $this.prop('name'),
@@ -171,6 +176,10 @@ $(document).ready(function() {
 				ColorToChange = $(NewSelector).parent('span'),
 				$DivParent = $this.parent('div');
 				Debug([$Text, $Name, NewSelector, ColorToChange], 'info');
+				if($Text) {
+					$Parent.attr('data-option', $Text.toLowerCase());
+				}
+				$DivParent.find('.select2.select2-container.select2-container--default').attr('style', 'width:100%;');
 				if($Val != $Default){
 					Debug('ADD Background', 'info');
 					ColorToChange.addClass('otherthanany').attr('data-background', $Text.toLowerCase());
@@ -191,9 +200,11 @@ $(document).ready(function() {
 						}
 						Debug('Wheel '+WheelInfo[1]+' n°'+WheelInfo[2], 'info');
 						$DivParent.find('.BlockButton').remove();
-						$DivParent.addClass('TwoColumns').append('<input type="text" class="BlockButton" name="'+WheelInfo[1]+'slots'+(WheelInfo[2])+'" data-default="<?php echo _ValAny_; ?>" value="<?php echo _ValAny_; ?>"/>');
+						$DivParent.addClass('TwoColumns').append('<input type="tel" class="BlockButton" name="'+WheelInfo[1]+'slots'+(WheelInfo[2])+'" data-default="<?php echo _ValAny_; ?>" value="<?php echo _ValAny_; ?>"/>').find('.select2.select2-container.select2-container--default').attr('style', 'width:70%;');
 					Debug('', 'groupend');
 				}
+			} else {
+				$Parent.attr('data-option', '');
 			}
 		Debug('', 'groupend');
 	  return this;
@@ -320,7 +331,7 @@ $(document).ready(function() {
 						value = value.toLowerCase();
 						$('select[name="ch'+(NbActualChannel + index)+'"]').val(value).trigger('change.select2').CheckValueSelect();
 					}
-
+					
 				});
 			}
 		$Datas = false;
@@ -408,8 +419,16 @@ $(document).ready(function() {
 					type : 'iframe'
 				});
 			});
+			
+	function formatState(s) {
+		if (!s.id) {
+			return s.text;
+		}
+		return $('<span data-option="'+s.element.value.toLowerCase()+'">'+s.text+'</span>');
+	}
+	
 		Debug('Select2 for autocomplete SELECT', 'info');
-			$.fn.select2.defaults.set('width', '80%');
+			$.fn.select2.defaults.set('width', '100%');
 		Debug('Add the first select to the page', 'info');
 			<?php echo _Channels_; ?>.AddSelect(1);
 		Debug('Hide the MAX Channel row', 'info');
@@ -417,10 +436,17 @@ $(document).ready(function() {
 		Debug('Add AutoComplete to <?php echo _Preferences_; ?> without search', 'info');
 			<?php echo _Preferences_; ?>.find('select').select2({minimumResultsForSearch: Infinity});
 		Debug('Add AutoComplete to <?php echo _Channels_; ?> with reduced search', 'info');
-			<?php echo _Channels_; ?>.find('select[name^="ch"]').select2({data: DropDown});
+			<?php echo _Channels_; ?>.find('select[name^="ch"]').select2({data: DropDown, templateResult: formatState});
+			RemoveAutoFocus();
 			<?php echo _Channels_; ?>.find('select[name="<?php echo _Manufacturer_; ?>"]').select2();
 			<?php echo _Channels_; ?>.find('select[name="<?php echo _FixtureName_; ?>"]').select2();
 	Debug('', 'groupend');
+		
+	function RemoveAutoFocus() {
+		$('select').on('select2:open', function (e) {
+			$('.select2-search input').prop('focus',false);
+		});
+	}
 	 // Create reusable method
     function myConfirm( opts ) {
         $.fancybox.open(
@@ -532,6 +558,29 @@ $(document).ready(function() {
 			}
 		Debug('', 'groupend');
 	});
+	$Body.on('click', 'a[href="#<?php echo _CollapseLink_; ?>"], a[href="#<?php echo _ExpandLink_; ?>"]', function(e){
+		Debug('Fixture Detail View Clicked', 'group');
+			e.preventDefault();
+			var $FixtureDetails = $('.form.FixtureDetail'),
+			$This = $(this),
+			$ThisHref = $This.attr('href').substr(1);
+			// Hide the icon and link just clicked
+				$This.parent('h3').hide();
+			//Following the link clicked, do the right actions
+				switch($ThisHref) {
+					case '<?php echo _ExpandLink_; ?>':
+						Debug('Expand infos', 'info');
+						$('a[href="#<?php echo _CollapseLink_; ?>"]').parent('h3').css('display', 'initial');
+						$FixtureDetails.addClass('extended');
+						break;
+					case '<?php echo _CollapseLink_; ?>':
+						Debug('Collapse infos', 'info');
+						$('a[href="#<?php echo _ExpandLink_; ?>"]').parent('h3').css('display', 'initial');
+						$FixtureDetails.removeClass('extended');
+						break;
+				}
+		Debug('', 'groupend');
+	});
 	//Display QuickSearch box
 	$QuickSearchLink.addClass('HighLight');
 	$QuickSearchBOX.slideDown(250);
@@ -539,24 +588,43 @@ $(document).ready(function() {
 			$QuickSearchLink.removeClass('HighLight');
 			$QuickSearchBOX.slideUp(250);
 		});
-	$QuickSearchLink.click(function(e){
-		Debug('QuickSearch Panel Displayed', 'group');
+	// Menu box
+	$('.showbox').on('click', 'a', function(e){
+		Debug('Panel Displayed', 'group');
 			e.preventDefault();
-			if($QuickSearchBOX.is(':visible')) {
-				$QuickSearchBOX.slideUp(250);
-				$QuickSearchLink.removeClass('HighLight');
+			var $This = $(this),
+			$Href = $This.attr('href'),
+			$Target = $($Href);
+			$('.showbox a').removeClass('HighLight');
+			if($Target.is(':visible')) {
+				$Target.slideUp(250);
+				$Body.removeClass('SetOpacity');
+				$Target.blur();
 			} else {
 				ScrollToTop();
-				$QuickSearchBOX.slideDown(250);
-				$QuickSearchLink.addClass('HighLight');
+				$('.DispBox').slideUp(250);
+				$Target.slideDown(250);
+				$This.addClass('HighLight');
+				$Body.addClass('SetOpacity');
 			}
 		Debug('', 'groupend');
 	});
-
+	// Outside click hide Menu Box
+	$('h1, #Channels, #Fixtures, form>div:nth-child(2)').click(function(e) {
+		if($(e.target).parent('a').parent('span').prop('class') != 'showbox' && $('.DispBox').is(':visible')) {
+			$('.DispBox').slideUp(250);
+			$('.showbox a').removeClass('HighLight');
+			$Body.removeClass('SetOpacity');
+		}
+	});
+	
 	//Scroll Shortcut
+	var NavTimeOut;
 	$(window).scroll(function() {
-		if($(this).scrollTop() > 50) {
+		clearTimeout(NavTimeOut);
+		if($(this).scrollTop() > 70 && $(this).scrollTop() < (document.body.scrollHeight - 10)) {
 			$('#NavButtons').fadeIn(250);
+			NavTimeOut = setTimeout(function(){ $('#NavButtons').fadeOut(250); }, 2000);
 		} else {
 			$('#NavButtons').fadeOut(250);
 		}
@@ -582,11 +650,11 @@ $(document).ready(function() {
 			e.preventDefault();
 			$QuickSearchLink.removeClass('HighLight');
 			$QuickSearchBOX.slideUp(250);
+			$Body.removeClass('SetOpacity');
 			var $Href = $(this).attr('href').substr(1);
 			$Datas = $.unserialize($Href);
 			switch($Href.substring(0,6).toLowerCase()) {
 				case 'action':
-					console.log($Datas);
 					QuickAction();
 					break;
 				default:
@@ -628,9 +696,10 @@ $(document).ready(function() {
 	$(<?php echo _Preferences_; ?>).on('change','select', function() {
 		Debug('CHANGE of Preference', 'group');
 			var $This = $(this),
-			CheckValue = $This.val();
+			CheckValue = $This.val(),
+			$ThisID = $This.prop('id');
 			$This.CheckValueSelect();
-			if($This.prop('id') == '<?php echo _SearchMode_; ?>') {
+			if($ThisID == '<?php echo _SearchMode_; ?>') {
 				Debug('CHANGE of Search Mode', 'info');
 				Debug([CheckValue], 'warn');
 				if(CheckValue == '<?php echo strtolower(_Search_Exact_); ?>' || CheckValue == '<?php echo strtolower(_Search_Exact_Live_); ?>') {
@@ -640,8 +709,14 @@ $(document).ready(function() {
 					Debug('SHOW Max DMX', 'info');
 					countermaxchannel.slideDown(250);
 				}
+				//If Search function change, set the notification icon
+				if(CheckValue != '<?php echo strtolower(_Search_Exact_); ?>') {
+					$SettingsBoxLink.addClass('notif');
+				} else {
+					$SettingsBoxLink.removeClass('notif');
+				}
 			}
-			if($This.prop('id') == '<?php echo _FullParam_; ?>') {
+			if($ThisID == '<?php echo _FullParam_; ?>') {
 				Debug('CHANGE of Channel Type List', 'info');
 				if(CheckValue == 0) {
 					Debug('Set AutoComplete list to Restricted choice', 'info');
@@ -660,15 +735,19 @@ $(document).ready(function() {
 				TrigChange();
 			}
 		Debug('', 'groupend');
-	});
+	});	
 	//Detect Channel changed
 	$(<?php echo _Channels_; ?>).on('change','select', function(data){
 		Debug('SEARCH for FIXTURES Matching New settings', 'group');
-			$(this).CheckValueSelect();
+			var $This = $(this),
+			$ThisID = $This.prop('id'),
+			$ThisVAL = $(this).val();
+			$This.CheckValueSelect();
 			BlurAll();
-			if($(this).prop('id') == '<?php echo _FixtureName_; ?>') {
+			// Automatic adjustment for fixture search
+			if($ThisID == '<?php echo _FixtureName_; ?>') {
 				Debug('CHANGE of Fixture Name', 'info');
-				if($(this).val() != '<?php echo _ValAny_; ?>' && $('#<?php echo _SearchMode_; ?>').val() == '<?php echo strtolower(_Search_Exact_); ?>') {
+				if($ThisVAL != '<?php echo _ValAny_; ?>' && $('#<?php echo _SearchMode_; ?>').val() == '<?php echo strtolower(_Search_Exact_); ?>') {
 					$('#<?php echo _SearchMode_; ?>').val('<?php echo strtolower(_Search_Live_); ?>').trigger('change');
 				} else {
 					$('#<?php echo _SearchMode_; ?>').trigger('change');
@@ -689,7 +768,7 @@ $(document).ready(function() {
 				timer2 = setTimeout(function (event) {
 					Debug('Function SEARCH for FIXTURES Matching New settings Timer raised with 50ms', 'info');
 					$.post('<?php echo _AJAX_; ?>', FormData, function(data) {
-						var Sentence = data.<?php echo _NbFixtures_; ?>+' fixture'+((data.<?php echo _NbFixtures_; ?>>1) ? 's' : '')+' profile found';
+						var Sentence = (data.<?php echo _NbFixtures_; ?> < <?php echo _MaxFixtureFound_; ?>) ? data.<?php echo _NbFixtures_; ?>+' fixture'+((data.<?php echo _NbFixtures_; ?>>1) ? 's' : '')+' profile found' : 'Please refine your search';
 						$(<?php echo _Fixtures_; ?>).html('<h2>'+Sentence+'</h2>'+data.<?php echo _FixtureHtml_; ?>);
 						Debug('AJAX Time answer', 'timeend');
 						Debug('AJAX answer receive => SET and DEFINE Search feedback text', 'info');
@@ -710,11 +789,12 @@ $(document).ready(function() {
 						} else if(MDMX > 0) {
 							Line+= ' <span>with a maximum of <em>'+MDMX+'</em> Channels</span>';
 						}
-						var LineInText = $(Line).text() + ' (='+data.<?php echo _NbFixtures_; ?>+')';
+						var LineNbOfFixture = '('+ ((data.<?php echo _NbFixtures_; ?> < <?php echo _MaxFixtureFound_; ?>) ? data.<?php echo _NbFixtures_; ?> : 'Refine your search' ) + ')',
+						LineInText = $(Line).text() + ' ' + LineNbOfFixture;
 						$Title.text(LineInText);
 						ActualLink = '#'+$('form').serialize();
 						history.pushState({url : ActualLink, title : LineInText}, LineInText, ActualLink);
-						$Line.empty().append('<a href="'+ActualLink+'">'+Line+'</a> <span title="'+Sentence+'"><em>(='+data.<?php echo _NbFixtures_; ?>+')</em></span>');
+						$Line.empty().append('<a href="'+ActualLink+'">'+Line+'</a> <span title="'+Sentence+'"><em>' + LineNbOfFixture + '</em></span>');
 						UnBlurAll();
 						Debug('', 'groupend');
 					});
@@ -722,7 +802,7 @@ $(document).ready(function() {
 			}
 		return false;
 	});
-
+	
 	window.onpopstate = function(e) {
 		if(e.state == null) {
 			$.fancybox.close();
@@ -735,11 +815,11 @@ $(document).ready(function() {
 			}
 		}
 	};
-
+	
 	if(window.location.hash) {
 		Debug('RESTORE Previous session', 'group');
 		HashUsed(false);
 		Debug('', 'groupend');
 	}
-
+	
 });

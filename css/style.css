@@ -1,88 +1,129 @@
+html, body {
+    height: initial!important
+}
 body {
-	font-family: 'Verdana';
+	font-family: 'Open Sans', sans-serif;
 	font-size: 80%;
-	background-color: #141414;
-	color: #E6E6E6;
-	min-height: 100%;
+	color: #FFF;
 	position: relative;
 	cursor: default;
+	background-color: <?php echo _C_Header_; ?>
 }
-footer {
-	position: relative;
-	font-size: 0.87em;
-	text-align: left;
+#global {
+	background-color: <?php echo _C_MainBody_; ?>;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index:-1;
+	pointer-events: none;
+	user-select: none
 }
-footer>p:first-child {
-	float: left;
+tr>td:nth-child(3),
+.fancybox-container h1,
+.FixtureDetail .fancybox-close-small,
+.detail h3:nth-child(2),
+.detail h3:nth-child(4),
+.hide {
+	display: none
 }
-footer>p:last-child {
-	text-align: right;
-	float: right;
+table.patch tr>td:nth-child(3) {
+	display: initial
 }
-.fancybox-container h1 {
-	display: none;
+.sticky {
+	position: sticky;
+	top: 0;
+	background-color: <?php echo _C_MainBody_; ?>;
+	z-index: 1
 }
-table {
-    width: 100%;
+table,
+form>div:first-child,
+.fancybox-container form>div,
+.display.list>div,
+.display .label {
+    width: 100%
 }
+#Fixtures>ul,
+#Fixtures>ol,
 thead td {
-    font-weight: bold;
+    font-weight: bold
 }
 tr {
-    border-bottom: 1px solid #FFF;
+    border-bottom: 1px solid #FFF
 }
-tr td:first-child {
+table:not(.patch) tr td:first-child,
+tr td.number {
 	width: 1em;
+	font-family: "Digital 7"
 }
-tr td:nth-child(2) {
+tr td.number {
+	width: auto;
+}
+table:not(.patch) tr td:nth-child(2) {
 	width: 2em;
-	word-wrap: wrap;
+	word-wrap: wrap
 }
-tbody tr:last-child {
-	border-bottom: none;
+tbody tr:last-child,
+.display>div:last-child,
+fieldset>div:not(.sticky):last-child,
+fieldset>div.sticky>div:last-child,
+#Fixtures>ul>li:last-child,
+#<?php echo _ChangelogLink_; ?>>ul>li:last-child {
+	border-bottom: none
 }
 td {
     padding: 0 .5em;
-	vertical-align: middle;
+	vertical-align: middle
 }
 h1 {
-	background-color: #121212;
 	width: 100%;
-	border-bottom: 1.7px solid #434343;
 	position: fixed;
 	z-index: 10;
+	background-color: <?php echo _C_Header_; ?>;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25)
+}
+h1>a {
+	font-size: 2em
 }
 h1 > span:first-child a {
 	padding: 0.3em;
 	margin: 0;
-	border-radius: 80%;
-	transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out
 }
 h1 > span:first-child a.HighLight,
 h1 > span:first-child a:hover,
-h1 > span:first-child a:active,
-h1 > span:first-child a:focus {
-    background-color: #FFA500;
-	border-radius: 50%;
+#iconbox a.HighLight,
+#iconbox a:hover,
+.detail h3 a:hover  {
+    filter:brightness(45%)
 }
-h2 {
+.SetOpacity #Channels, .SetOpacity #Fixtures {
+    opacity: 0.2;
+    filter: blur(3px);
+	transition: opacity .25s, filter .25s
+}
+.SetOpacity form>div {
+	overflow: hidden
+}
+h2, h3 {
+	color: rgb(77,247,255);
     font-size: 1.2em;
     margin-bottom: 0.5em;
-    margin-top: 0.2em;
-    text-decoration: underline;
+    margin-top: 0.2em
 }
 #NavButtons {
 	display: none;
     position: fixed;
-    bottom: 6em;
+    bottom: 5.5em;
     right: 2em;
-	visibility: hidden;
+	visibility: hidden
 }
 #NavButtons>a,
 #NavButtons>a:active,
 #NavButtons>a:focus {
     color: #FFF;
-	background-color: #141414;
+	background-color: <?php echo _C_Header_; ?>;
 	border-radius: 100%;
 	font-size: 2em;
 	width: 2em;
@@ -93,228 +134,251 @@ h2 {
 	margin-top: .2em;
 	transition: color .5s, background-color .5s;
 	box-shadow: -1px 1px 2px 0px #000;
-	border: none;
+	border: none
 }
 #NavButtons>a:hover {
-	background-color: #FFA500;
-	border: none;
+	background-color: rgb(239,251,65);
+	border: none
 }
 .FixtureDetail .display,
-.FixtureDetail.form {
-	padding-top: 0;
-	margin-top: 0.5em;
+.FixtureDetail.form,
+li .display {
+	padding-top: 0
+}
+.FixtureDetail.form  {
+	padding-top: 5em!important
 }
 .detail {
     display: flex;
+    left: 0;
+	right: 0;
+	top: 0;
+    background-color: <?php echo _C_Header_; ?>;
+    padding: 0 1em;
+    position: fixed;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+	z-index: 10
 }
 .detail > div {
     margin: 0.5em;
-	margin-right: 1.5em;
 	width: 50%;
+	text-align: right
 }
 .detail h3 {
 	text-align: right;
-	margin: .2em;
-	margin-right: 0.5em;
+    margin: .2em;
+    margin-right: 0.5em;
+	display: inline-block
+}
+.detail h3>a>img {
+	width: 25px;
+	height: 25px
+}
+.extended tr>td:nth-child(3),
+.fancybox-content .detail h3:nth-child(4) {
+	display: initial
+}
+.detail h3:nth-child(4) > a {
+    margin: 0 0 0 2em
 }
 .detail > h2 > span {
     display: block;
 	font-size: 80%;
-	text-align: left;	
+	text-align: left
 }
 .detail > h2,
-.fancybox-container h2 {
-	margin-bottom: 1em;
-	margin-top: 0.5em;
-	text-decoration: none;
-	text-align: center;
-	color: #FFA500;
-	font-size: 2em;
+.fancybox-container h2,
+.detail > h3,
+.fancybox-container h3 {
+	color: rgb(239,251,65)
 }
-.detail > h2 {
+.detail > h2,
+.detail > h3 {
     width: 50%;
-	text-align: right;
+	text-align: right
+}
+.form>p, .form>ul, .form>ol {
+    margin: 0.2em 0.2em 0.2em 2em
+}
+.form>h3 {
+	color: rgb(77,247,255)!important;
+    font-size: 1.5em;
+    margin: 1em 1em 1em 0.5em;
+	border-bottom: 1px solid rgb(89, 89, 89)
 }
 form,
 .display,
 .form {
 	width: 80%;
 	margin: 0 auto;
-	display: flex;
-	padding-top: 3em;
+	display: grid;
+	padding-top: 5.5em;
+	grid-template-columns: 1fr 2fr
 }
 .display {
-	width: 95%;
+	width: 95%
 }
-li .display {
-	padding-top: 0;
+.fancybox-close-small {
+	color: #EEE!important
 }
 .fancybox-close-small::after {
-	color: #FFA500!important;
+	color: rgb(239,251,65)!important;
 	background-color: rgba(0,0,0,.8)!important;
 	transition: color .5s, background-color .5s!important;
-	font-weight: 800!important;
+	font-weight: 800!important
 }
 .fancybox-close-small:hover::after {
-	background-color: #FFA500!important;
-	color: rgba(0,0,0,.8)!important;
+	background-color: rgb(239,251,65)!important;
+	color: rgba(0,0,0,.8)!important
 }
 .fancybox-container .display,
 .fancybox-container .form,
 .fancybox-container form {
 	padding-top: 0;
-	background-color: #141414;
-	border-radius: 1em;
-	margin-top: 1em;
+	background-color: rgb(51, 51, 51)
+}
+.fancybox-content {
+	position: absolute!important;
+	left: 0!important;
+	width: 100%!important
+}
+.fancybox-slide--html {
+	padding: 0!important
 }
 .fancybox-slide > * {
-	box-shadow: -1px 1px 8px 0px #000!important;
+	box-shadow: -1px 1px 8px 0px #000!important
 }
 .display.list,
 .form {
-	display: block;
+	display: block
 }
-.display {
-	width: 100%;
-	display: flex;
-	flex-wrap: wrap;
+.overflow {
+	overflow-x: auto
+}
+div.display {
+	width: fit-content;
+	display: flex
 }
 form>div {
-	width: calc(100%/2);
-	display: block;
-	overflow-y: auto;
-	height: 92vh;
+	overflow: auto;
+	height: calc(100vh - 6em)
 }
-.fancybox-container form>div {
-	width: 100%;
+ol>li {
+    counter-increment: channel
+}
+ol>li:before {
+    content: counter(channel) " - ";
+    font-family: "Digital 7"
 }
 .display>div,
-fieldset>div,
+fieldset>div:not(.sticky),
+fieldset>div.sticky>div,
 #Fixtures>ul>li,
 #<?php echo _ChangelogLink_; ?>>ul>li {
-	background-color: #323232;
-	border: 1.7px solid #000;
 	display: flex;
 	padding: 0.5em;
 	width: calc(100% - 20px);
-	margin-top: -1.7px;
+	border-bottom: 1px solid rgb(89, 89, 89)
 }
 #<?php echo _ChangelogLink_; ?>>ul>li {
-	display: list-item;
+	display: list-item
 }
-fieldset>div>div {
-	width: 50%;
+fieldset>div:not(.sticky)>div, fieldset>div.sticky>div>div {
+	width: 50%
 }
-.TwoColumns {
-	display: inline-flex;
-}
-fieldset>div>div:last-child {
+fieldset>div:not(.sticky)>div:last-child,
+fieldset>div.sticky>div>div:last-child  {
 	text-align: center;
-	vertical-align: middle;
+	vertical-align: middle
 }
 #Fixtures>ul>li {
 	width: auto;
-	display: block;
-}
-.display>div:nth-child(2n+1),
-fieldset>div:nth-child(2n+1),
-#Fixtures>ul>li:nth-child(2n+1),
-#<?php echo _ChangelogLink_; ?>>ul>li:nth-child(2n+1) {
-	background-color: #232323;
+	display: block
 }
 .display>div {
 	margin-top: 0;
-	margin-left: -1.7px;
-	width: 325px;
-}
-.display.list>div {
-	width: 100%;
+	margin-left: -1.7px
 }
 .display>div:nth-child(2n+1) {
-	margin-top: 0;
+	margin-top: 0
 }
 label,
 .label {
-    font-weight: bolder;
+    font-weight: bolder
 }
 .display.list .label {
-	max-width: 30%;
+	max-width: 30%
 }
 .display.list.changelog .label {
-	max-width: 20%;
+	max-width: 20%
 }
 .ADDED,
 .FIXED,
 .UPDATED {
 	font-weight: bolder;
-	color: green;
+	color: green
 }
 .FIXED {
-	color: red;
+	color: red
 }
 .UPDATED {
-	color: yellow;
-}
-
-.display .label {
-	width: 100%;
+	color: yellow
 }
 label > span,
 .label > span {
 	display: block;
     font-weight: normal;
 	padding-left: 1em;
-	font-size: 0.87em;
+	font-size: 0.87em
 }
 .display .label > span {
-	font-size: 1em;
-}
-.hide {
-	display: none;
+	font-size: 1em
 }
 select, input {
 	width: 80%;
 	margin-right: auto;
 	margin-left: auto;
-	cursor: pointer;
+	cursor: pointer
 }
 input {
-	cursor: auto;
+	cursor: auto
 }
 @font-face {
     font-family: 'Digital 7';
-    src: url('digital-7.ttf') format('truetype');
+    src: url('digital-7.ttf') format('truetype')
 }
 #MaxChannels, #count, button, .BlockButton {
 	font-family: 'Digital 7';
-	font-size: 5.2em;
-	width: 100px;
+	font-size: 4.9em;
+	width: calc(100% - 100px);
 	text-align: center;
 	color: #FFF;
-	background-color: #000;
+	background-color: rgb(60,60,60);
 	height: 50px;
     line-height: 50%;
-	border: 2px solid #000;
-	margin: 0 -3px;
+	border: none;
+	margin: 0;
+	padding: 0;
+	border-radius: 2px;
+	text-shadow: 2px 2px 4px #000
 }
 #Reset {
-	border: 1px solid #000;
-    font-family: 'Verdana';
+	border: none;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1.45em;
     height: 1.5em;
-    width: 80%;
+	line-height: 1.5em;
+    width: 100%
 }
 .BlockButton {
-	border: 1px solid #000;
+	border: 1px solid transparent;
 	font-size: 1.45em;
     height: 1.3em;
-    width: 30%;
+    width: 30%
 }
-input::selection {
-  background: #000;
-}
+input::selection,
 input::-moz-selection {
-  background: #000;
+  background: #FFF
 }
 #MaxChannels:focus,
 #MaxChannels.active,
@@ -322,13 +386,14 @@ input::-moz-selection {
 #count.active,
 .BlockButton:focus,
 .BlockButton.active {
-	color: #C30505;
+	color: rgb(255,0,203)
 }
 button {
 	width: 50px;
-	background-color: #1E1E1E;
-	height: 56px;
+	background-color: rgb(89,89,89);
+	height: 50px;
 	cursor: pointer;
+	font-size: 3.8em
 }
 button.btn {
 	width: 5em;
@@ -336,78 +401,84 @@ button.btn {
 	font-family: inherit;
 	font-size: 1.5em;
 	margin: 0.2em;
-	margin-top: 1em;
+	margin-top: 1em
 }
 .form.dialog {
     width: auto;
-    text-align: center;
+    text-align: center
 }
 .focus button,
 .focus select,
 .focus input {
-	cursor: wait;
+	cursor: wait
 }
-#counter,
-#countermaxchannel {
-	display: flex;
+#counter>div:last-child,
+#countermaxchannel>div:last-child ,
+.TwoColumns {
+	display: inline-flex
 }
 #Channels {
-	margin-top: 1em;
+	margin-top: 1em
 }
 #Fixtures {
 	display: block;
 	margin-left: 2em;
-	cursor: auto;
-}
-#Fixtures>ul {
-	font-weight: bold;
+	cursor: auto
 }
 #Fixtures>ul ul,
+#Fixtures>ul ol,
+.list ol,
 .list ul {
-	-moz-column-count: 5;
-    -webkit-column-count: 5;
-    column-count: 5;
+	-moz-column-count: 8;
+    -webkit-column-count: 8;
+    column-count: 8;
 	font-size: 0.87em;
-	font-weight: normal;
+	font-weight: normal
 }
-.list ul {
+.list ul,
+.list ol {
 	-moz-column-count: 3;
     -webkit-column-count: 3;
     column-count: 3;
-	font-size: inherit;
+	font-size: inherit
 }
 .changelog ul {
-	-moz-column-count: initial;
-    -webkit-column-count: initial;
-    column-count: initial;
+	-moz-column-count: initial!important;
+    -webkit-column-count: initial!important;
+    column-count: initial!important
 }
 .changelog ul ul,
 #<?php echo _ChangelogLink_; ?> ul ul {
     list-style: initial;
-    margin-left: 15px;
+    margin-left: 15px
 }
 li em {
     font-size: 0.8em;
-    font-weight: normal;
+    font-weight: normal
+}
+#Fixtures li em,
+#iconbox {
+    float: right
 }
 .copyleft {
   display:inline-block;
-  transform: rotate(180deg);
+  transform: rotate(180deg)
 }
 #wheelcolor, #wheelgobo, #wheelanimation,
 .wheelcolor ul, .wheelgobo ul, .wheelanimation ul {
     display: flex;
-	flex-wrap: wrap;
+	flex-wrap: wrap
 }
 #<?php echo _ChangelogLink_; ?>, .wheelcolor>span, .wheelgobo>span, .wheelanimation>span {
 	display: none;
+	text-align: left
 }
 .form .wheelcolor>span, .form .wheelgobo>span, .form .wheelanimation>span {
-	display: block;
+	display: block
 } 
 .wheelcolor, .wheelgobo, .wheelanimation {
     margin-right: 1em;
-	margin-left: 1em;
+	margin-left: 1em
 }
 .WheelSlot, .wheelcolor li, .wheelgobo li, .wheelanimation li {
     height: 2.5em;
@@ -417,32 +488,45 @@ li em {
 	background: transparent right center no-repeat;
 	background-size: contain;
 	box-shadow: -1px 1px 8px 0px #000;
-	transition: transform 0.3s ease-in-out;
+	transition: transform 0.3s ease-in-out
 }
 .WheelSlot {
 	height: 0.8em;
 	width: 0.8em;
 	margin: 0;
 	display: inline-block;
-	box-shadow: -1px 1px 1px 0px #000;
+	box-shadow: -1px 1px 1px 0px #000
 }
 .WheelSlot:hover, .WheelSlot:focus,
 .wheelcolor li:hover, .wheelcolor li:focus,
 .wheelgobo li:hover, .wheelgobo li:focus,
 .wheelanimation li:hover, .wheelanimation li:focus {
 	transform: scale(2.5);
-	transition: transform 0.1s;
+	transition: transform 0.1s
 }
 .wheelcolor li:hover, .wheelcolor li:focus {
-	transform: scale(2);
+	transform: scale(2)
 }
 li .wheelcolor li, li .wheelgobo li, li .wheelanimation li {
     height: 1.5em;
     width: 1.5em;
-	margin: 0;
+	margin: 0
 }
 .wheelcolor li {
-	margin-right: -0.5em!important;
+	margin-right: -0.5em!important
+}
+a[pop],
+a[pop-iframe],
+a[href*="//"]:not([href*="onyxfixturefinder.com"]) {
+	background: transparent url(../img/svg/link.svg) right center no-repeat;
+    padding-right: 18px;
+    background-size: 16px 16px;
+	color: rgb(239,251,65)!important
+}
+#Fixtures a[pop] {
+	background: none;
+	color: inherit!important;
+	padding-right: 0
 }
 a,
 a:not(.img):visited,
@@ -454,12 +538,11 @@ a:not(.img):active {
     position: relative;
     padding-bottom: 3px;
 	color: inherit;
-	text-decoration: none;
+	text-decoration: none
 }
 a:not(.img):focus,
 a:not(.img):hover {
-	color: #FFA500;
-	transition: color .5s ease-in-out;
+	transition: color .5s ease-in-out
 }
 a:not(.img):before {
     content: '';
@@ -469,7 +552,11 @@ a:not(.img):before {
     bottom: 0;
     height: 3px;
     width: 0;
-    transition: width 0s ease-in-out, background .5s ease-in-out;
+    transition: width 0s ease-in-out, background .5s ease-in-out
+}
+.changelog a:not(.img):before,
+.changelog a:not(.img):after {
+	content: none
 }
 a:not(.img):after {
     content: '';
@@ -479,218 +566,694 @@ a:not(.img):after {
     bottom: 0;
     height: 3px;
     width: 0;
-    background: #FFA500;
-    transition: width .5s ease-in-out;
+    background: rgb(239,251,65);
+    transition: width .5s ease-in-out
 }
 a:not(.img):hover:before {
     width: 100%;
-    background: #FFA500;
-    transition: width .5s ease-in-out;
+    background: rgb(239,251,65);
+    transition: width .5s ease-in-out
 }
 a:not(.img):hover:after {
     width: 100%;
     background: transparent;
-    transition: all 0s ease-in-out;
+    transition: all 0s ease-in-out
+}
+#FixtureRequest>a,
+#FixtureRequest>p {
+    background: <?php echo _C_Header_; ?> none;
+    padding: 2em;
+    font-size: 1.5em;
+    margin: 1em;
+    display: block;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+	border-radius: 0.5em;
+	color: rgba(255, 0, 203, 0.75)!important;
+	transition: color, background-color .5s
+}
+#FixtureRequest>a:hover,
+#FixtureRequest.DropGood>p {
+	color: #FFF!important;
+	background-color: rgba(255, 0, 203, 0.75)!important
+}
+#FixtureRequest.DragEnter>p {
+	border: 2px dotted rgba(255, 0, 203, 0.75)
+}
+#FixtureRequest>a>img,
+#FixtureRequest>p>img {
+	max-width: 350px;
+	text-align: left;
+	margin-bottom: 40px
+}
+#FixtureRequest>a>strong,
+#FixtureRequest>p>strong {
+	text-align: right;
+	transition: color, background-color .5s
+}
+#UGSearches,
+#UGInterface,
+#FixturesStats,
+#HallOfFame {
+	background-size: 50px!important;
+	background: transparent left center no-repeat
+}
+#UGSearches {
+	background-image: url(../img/svg/ug-search.svg)
+}
+#UGInterface {
+	background-image: url(../img/svg/ug-feature.svg)
+}
+#FixturesStats {
+	background-image: url(../img/svg/stats.svg)
+}
+#HallOfFame {
+	background-image: url(../img/svg/cup.svg)
 }
 .loader {
-    height: calc(2.7em + 3px);
+    height: 10px;
     left: 0;
     overflow: hidden;
     position: absolute;
     width: 100%;
-	z-index: 11;
+	z-index: 11
 }
 .loader:before{
     animation: 2s linear 0s normal none infinite running loading;
-    background-color: rgba(255, 165, 0, 0.75);
+    background-color: rgba(255, 0, 203, 0.75);
 	text-align: right;
     content: ' ';
     display: block;
-    height: calc(2.7em + 3px);
+    height: 10px;
     left: -200px;
     position: absolute;
-	z-index: 11;
+	z-index: 11
 }
-#quicksearch {
+.DispBox.Right {
+	top: 0;
+    right: 0;
+    position: absolute;
+	width: 30%
+}
+#iconbox a {
+    padding: 1em 0;
+    margin: 0 0.5em;
+	transition: all 0.5s ease-in-out
+}
+.detail h3 a {
+	transition: all 0.5s ease-in-out
+	border: none;
+}
+#iconbox img,
+.detail h3>a>img {
+	width: 36px;
+	height: 36px
+}
+.quickaction>li>ul {
+    padding-left: 10px
+}
+.DispBox {
     display: none;
     position: absolute;
-    background-color: #121212;
-    border: 1.7px solid #434343;
-    padding: 3em 1em 1em;
+    background-color: <?php echo _C_Header_; ?>;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+    padding: 5.5em 1em 1em;
+	box-sizing: border-box;
     border-left: none;
-	z-index: 9;
+	z-index: 9
 }
-#quicksearch>ul {
+.DispBox>ul {
     margin: 1em 1em 1em 0;
-    padding-left: calc(50px + 1em);
+    padding-left: 50px;
 	background-repeat: no-repeat;
-	min-height: 50px;
+	min-height: 50px
 }
-#quicksearch>ul>li>ul {
-    padding-left: 1em;
+.DispBox>ul:not(.quickaction)>li>ul {
+    padding-left: 1em
 }
+.DispBox>ul.quickaction>li>ul>li>a>span:before {
+    content: " ";
+    position: absolute;
+    margin-left: -7px;
+    font-size: 50%;
+    margin-top: 7px
+}
+.DispBox>ul.quickaction>li>ul>li>a>span:first-child:before {
+    content: ""
+}
+.DispBox>ul.quickaction>li>ul>li>a {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr)
+}
+.DispBox>ul.quickaction>li.IntensityShutter>ul>li>a {
+	grid-template-columns: repeat(2, 1fr)
+}
+.DispBox>ul.quickaction>li.Color>ul>li>a {
+	grid-template-columns: repeat(6, 1fr)
+}
+.DispBox>ul.quickaction>li.Color.Fine>ul>li>a {
+	grid-template-columns: repeat(6, 1fr)
+}
+
 hr {
 	border: 1.7px solid #434343;
-	width: 100%;
+	width: 100%
 }
 ul.quickaction {
-	background-image: url('../img/quick-action.png');
+	background-image: url('../img/quick-action.png')
 }
 ul.quicksearch {
-	background-image: url('../img/quick-search.png');
+	background-image: url('../img/quick-search.png')
 }
 ul.quickexample {
-	background-image: url('../img/quick-example.png');
+	background-image: url('../img/quick-example.png')
 }
 
 @keyframes loading {
-    from {left: -200px; width: 30%;}
-    50% {width: 30%;}
-    70% {width: 70%;}
-    80% { left: 50%;}
-    95% {left: 120%;}
-    to {left: 100%;}
+    from {left: -200px; width: 30%}
+    50% {width: 30%}
+    70% {width: 70%}
+    80% { left: 50%}
+    95% {left: 120%}
+    to {left: 100%}
 }
 .focus {
 	filter:blur(20px) brightness(250%);
 	cursor: wait;
-	transition: all 0.2s ease;
+	transition: all 0.2s ease
 }
 .linesearch {
-	float: right;
-	margin: 0.5em;
+	font-size: 70%;
+	position: absolute;
+	top: 5em;
+	left: 90px
 }
 .linesearch>a>span {
-	color: #FFA500;
+	color: rgb(239,251,65)
 }
 .linesearch>a>span:nth-child(2n+1) {
-	color: #FFF;
-}
-.select2-container--default .select2-selection--single,
-.select2-container--open .select2-dropdown--below {
-	color: inherit!important;
-	background-color: #1e1e1e!important;
-    border: 1px solid #000!important;
-    border-radius: 0!important;
+	color: #FFF
 }
 .select2-container--default .select2-selection--single .select2-selection__rendered {
 	color: #FFF!important;
-	text-shadow: 2px 2px 4px #000;
+	text-shadow: 2px 2px 4px #000
 }
 .select2-dropdown {
 	color: #FFF!important;
-	background-color: #1e1e1e!important;
-}
-span.select2-selection.select2-selection--single.otherthanany,
-.select2-results__option[aria-selected="true"],
-.select2-container--default .select2-results__option--highlighted[aria-selected] {
-	background: #6b1816!important; 
-	background: linear-gradient(to right, #6b1816, #6b1816, #511210)!important;
-	font-weight: bolder;
-}
-span[data-background="jem"].select2-selection.select2-selection--single.otherthanany,
-span[data-background="martin"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, #A25800, #A25800, #612D06)!important;
-}
-span[data-background^="red"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, red, darkred, red)!important;
-}
-span[data-background^="green"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, green, darkgreen, green)!important;
-}
-span[data-background^="blue"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, blue, darkblue, blue)!important;
-}
-span[data-background^="white"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, white, GhostWhite, white)!important;
-}
-span[data-background^="amber"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, Gold, GoldenRod , Gold)!important;
-}
-span[data-background^="uv"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, Navy, MidnightBlue , Navy)!important;
-}
-span[data-background^="cyan"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, cyan, darkcyan, cyan)!important;
-}
-span[data-background^="magenta"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, magenta, darkmagenta, magenta)!important;
-}
-span[data-background^="yellow"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(to right, yellow, #cccc00, yellow)!important;
-}
-span[data-background="color"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(left,red,orange,yellow,green,blue,cyan,indigo,violet)!important;
-}
-span[data-background^="intensity"].select2-selection.select2-selection--single.otherthanany {
-	background: linear-gradient(175deg, black 0%,black 50%,white 50%,white 100%)!important;
+	background-color: rgb(89,89,89)!important
 }
 .select2-container--default .select2-results__group {
-	background-color: #000!important;
+	background-color: rgb(60,60,60)!important;
 	text-align: center;
-}
-.select2-results__options>li:nth-child(2n+1) {
-	background-color: #232323!important;
+	font-style: italic
 }
 .select2-search__field {
-	background-color: #000!important;
-	color: #C30505!important;
-	font-weight: bolder!important;
+	background-color: #FFF!important;
+	color: rgb(255,0,203)!important;
+	font-weight: bolder!important
 }
 .select2-container--default .select2-search--dropdown .select2-search__field {
-	border: 1px solid #000!important;
+	border: 1px solid #FFF!important
 }
-@media screen and (max-width: 1250px) {
+[data-option] {
+    background-color: rgb(77,247,255), rgb(77,247,255);
+    background-position: 57px 8px, 40px 6px;
+    background-size: 18px 13px, 18px 18px;
+    background-repeat: no-repeat, no-repeat
+}
+td[data-option],
+span[data-option] {
+	background-position: left bottom, left top;
+	background-size: 10px 10px, 10px 10px;
+	padding-left: 10px;
+}
+td[data-option] {
+	background-position: left calc(50% + 6px), left calc(50% - 6px);
+}
+[data-option][data-option~=fine] {
+    background-image: none, url(../img/svg/fine.svg)
+}
+[data-option][data-option~=rot] {
+    background-image: url(../img/svg/rotation.svg), none
+}
+[data-option][data-option~=fine][data-option~=rot] {
+    background-image: url(../img/svg/rotation.svg), url(../img/svg/fine.svg)
+}
+
+.select2-selection--single,
+.select2-container--open .select2-dropdown--below,
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-results__option[aria-selected="true"] {
+	background-color: rgb(89, 89, 89)!important;
+	text-align-last: left;
+	border:none!important;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+}
+.select2-container--default .select2-results__option[aria-selected="true"] {
+	background: linear-gradient(to right, rgb(77,247,255) 0%, rgb(77,247,255) 3%, transparent 3%, transparent 100%);
+	box-shadow: none;
+	text-align-last: center;
+}
+.select2-results__option.select2-results__option--highlighted {
+	background-color: rgba(77,247,255,0.25)!important;
+}
+[data-option]>span,
+div[data-option] .select2-selection--single.otherthanany {
+    background-image: linear-gradient(to right, rgb(77,247,255) 0%, rgb(77,247,255) 20%, transparent 20%, transparent 100%);
+    font-weight: 700;
+    background-position: left center!important;
+    background-size: 32px 32px!important;
+    background-repeat: no-repeat!important;
+    text-align-last: left;
+    padding-left: 38px;
+	box-sizing: content-box;
+}
+.select2-results__option span[data-option],
+[data-option]>span {
+	background-size: 16px 16px!important;
+	padding-left: 18px;
+}
+td[data-option]>span {
+	background-image: none;
+}
+.select2-results__option span[data-option^=pan],
+[data-option^=pan]>span, 
+div[data-option^=pan] .select2-selection--single {
+    background-image: url(../img/svg/pan.svg)!important
+}
+.select2-results__option span[data-option^=tilt],
+[data-option^=tilt]>span, 
+div[data-option^=tilt] .select2-selection--single {
+    background-image: url(../img/svg/tilt.svg)!important
+}
+.select2-results__option span[data-option^=strobe],
+[data-option^=strobe]>span, 
+div[data-option^=strobe] .select2-selection--single {
+    background-image: url(../img/svg/strobe.svg)!important
+}
+.select2-results__option span[data-option^=gobo],
+[data-option^=gobo]>span, 
+div[data-option^=gobo] .select2-selection--single {
+    background-image: url(../img/svg/wheel.svg)!important
+}
+.select2-results__option span[data-option^=prism],
+[data-option^=prism]>span, 
+div[data-option^=prism] .select2-selection--single {
+    background-image: url(../img/svg/prism.svg)!important
+}
+.select2-results__option span[data-option^=red],
+[data-option^=red]>span, 
+div[data-option^=red] .select2-selection--single {
+    background-image: linear-gradient(to right, rgba(255, 0, 0, .9), rgba(204, 0, 0, .9), rgba(255, 0, 0, .9))!important;
+}
+.select2-results__option span[data-option^=green],
+[data-option^=green]>span, 
+div[data-option^=green] .select2-selection--single {
+    background-image: linear-gradient(to right, rgba(0, 128, 0, .9), rgba(0, 77, 0, .9), rgba(0, 128, 0, .9))!important;
+}
+.select2-results__option span[data-option^=blue],
+[data-option^=blue]>span, 
+div[data-option^=blue] .select2-selection--single {
+    background-image: linear-gradient(to right, rgba(0, 0, 255, .9), rgba(0, 0, 204, .9), rgba(0, 0, 255, .9))!important;
+}
+.select2-results__option span[data-option^=white],
+[data-option^=white]>span, 
+div[data-option^=white] .select2-selection--single {
+    background-image: linear-gradient(to right, #fff, #e6e6e6, #fff)!important;
+}
+.select2-results__option span[data-option^=amber],
+[data-option^=amber]>span, 
+div[data-option^=amber] .select2-selection--single {
+    background-image: linear-gradient(to right, gold, #ccac00, gold)!important;
+}
+.select2-results__option span[data-option^=uv],
+[data-option^=uv]>span, 
+div[data-option^=uv] .select2-selection--single {
+    background-image: linear-gradient(to right, rgba(25, 25, 112, .9), rgba(16, 16, 70, .9), rgba(25, 25, 112, .9))!important;
+}
+.select2-results__option span[data-option^=cyan],
+[data-option^=cyan]>span, 
+div[data-option^=cyan] .select2-selection--single {
+    background-image: linear-gradient(to right, rgba(0, 255, 255, .9), rgba(0, 204, 204, .9), rgba(0, 255, 255, .9))!important;
+}
+.select2-results__option span[data-option^=magenta],
+[data-option^=magenta]>span, 
+div[data-option^=magenta] .select2-selection--single {
+    background-image: linear-gradient(to right, rgba(255, 0, 255, .9), rgba(204, 0, 204, .9), rgba(255, 0, 255, .9))!important;
+}
+.select2-results__option span[data-option^=yellow],
+[data-option^=yellow]>span, 
+div[data-option^=yellow] .select2-selection--single {
+    background-image: linear-gradient(to right, #ff0, #cc0, #ff0)!important;
+}
+.select2-results__option span[data-option^=cto],
+[data-option^=cto]>span, 
+div[data-option^=cto] .select2-selection--single,
+.select2-results__option span[data-option^=ctc],
+[data-option^=ctc]>span, 
+div[data-option^=ctc] .select2-selection--single {
+    background-image: linear-gradient(to right, #ffb473, #d29159, #ffb473)!important;
+}
+.select2-results__option span[data-option^=ctb],
+[data-option^=ctb]>span, 
+div[data-option^=ctb] .select2-selection--single,
+.select2-results__option span[data-option^=ctf],
+[data-option^=ctf]>span, 
+div[data-option^=ctf] .select2-selection--single {
+    background-image: linear-gradient(to right, #80b9ff, #5480b5, #80b9ff)!important;
+}
+.select2-results__option span[data-option^=color],
+[data-option^=color]>span, 
+div[data-option^=color] .select2-selection--single {
+    background-image: url(../img/svg/color.svg)!important
+} 
+.select2-results__option span[data-option^=intensity],
+[data-option^=intensity]>span, 
+div[data-option^=intensity] .select2-selection--single {
+    background-image: url(../img/svg/intensity.svg)!important
+}
+.select2-results__option span[data-option^=shutter],
+[data-option^=shutter]>span, 
+div[data-option^=shutter] .select2-selection--single {
+    background-image: url(../img/svg/shutter.svg)!important
+}
+.select2-results__option span[data-option^=frost],
+[data-option^=frost]>span, 
+div[data-option^=frost] .select2-selection--single {
+    background-image: url(../img/svg/frost.svg)!important
+}
+.select2-results__option span[data-option^=iris],
+[data-option^=iris]>span, 
+div[data-option^=iris] .select2-selection--single {
+    background-image: url(../img/svg/iris.svg)!important
+}
+.select2-results__option span[data-option^=focus],
+[data-option^=focus]>span, 
+div[data-option^=focus] .select2-selection--single {
+    background-image: url(../img/svg/focus.svg)!important
+}
+.select2-results__option span[data-option^=zoom],
+[data-option^=zoom]>span, 
+div[data-option^=zoom] .select2-selection--single {
+    background-image: url(../img/svg/zoom.svg)!important
+}
+.select2-results__option span[data-option^=macro],
+[data-option^=macro]>span, 
+div[data-option^=macro] .select2-selection--single {
+    background-image: url(../img/svg/macro.svg)!important
+}
+.select2-results__option span[data-option^=ctrl],
+[data-option^=ctrl]>span, 
+div[data-option^=ctrl] .select2-selection--single {
+    background-image: url(../img/svg/ctrl.svg)!important
+}
+.select2-results__option span[data-option^=fx],
+[data-option^=fx]>span, 
+div[data-option^=fx] .select2-selection--single {
+    background-image: url(../img/svg/fx.svg)!important
+}
+.select2-results__option span[data-option^=elation],
+[data-option^=elation]>span, 
+div[data-option^=elation] .select2-selection--single {
+	background-image: linear-gradient(to right, rgb(255,171,64) 0%, rgb(255,171,64) 20%, transparent 20%, transparent 100%)!important;
+}
+.select2-results__option span[data-option~=speed],
+[data-option~=speed]>span, 
+div[data-option~=speed] .select2-selection--single {
+    background-image: url(../img/svg/speed.svg)!important
+}
+div[data-option] .label {
+	width: 22%!important
+}
+div[data-option] div {
+	width: 78%!important
+}
+tr {
+    border-bottom: 0.1px solid rgba(255, 255, 255, 0.2)
+}
+.extended .display>div {
+	width: 325px;
+}
+.display>div {
+	width: 200px
+}
+/* Status Icon */
+.statusOK,
+.statusKO,
+.statusWA {
+	background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 50px;
+    padding-top: 50px;
+    font-size: 1.5em;
+	text-shadow: 2px 2px 4px #000;
+	text-align: center;
+	margin: 1em 0!important
+}
+.statusOK {
+	background-image: url(../img/svg/ok.svg);
+	color: rgb(77,247,255)
+}
+.statusKO {
+	background-image: url(../img/svg/ko.svg);
+	color: rgb(215,41,128)
+}
+.statusWA {
+	background-image: url(../img/svg/warning.svg);
+	color: rgb(255,171,64)
+}
+/* ScrollBar */
+::-webkit-scrollbar {
+    width: 10px
+}
+::-webkit-scrollbar-track {
+    background-color: <?php echo _C_Header_; ?>
+}
+::-webkit-scrollbar-thumb {
+    background-color: #333;
+    border-top: 1px solid #FFF;
+    border-bottom: 1px solid #FFF
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(255, 0, 203, 0.75)  
+}
+.notif::after {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 15px;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+    background-color: rgba(255, 0, 203, 0.75);
+    border-radius: 50%;
+    border: 0.5px solid rgb(0, 0, 0);
+    right: 0
+}
+.userguide img {
+	border: 1px solid rgb(77,247,255);
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+    margin: 5px;
+    padding: 5px
+}
+@media screen and (max-width: 1750px) {
 	form {
-		width: 100%;
+		width: 100%
 	}
-	@media screen and (max-width: 850px) {
-		html:not(.fancybox-container) fieldset label > span, html:not(.fancybox-container) fieldset .label > span {
-			display: none;
+	@media screen and (max-width: 1450px) {
+		#Fixtures>ul ul,
+		#Fixtures>ul ol,
+		.list ol,
+		.list ul {
+			-moz-column-count: 7;
+			-webkit-column-count: 7;
+			column-count: 7
 		}
-		.loader, .loader:before {
-			height: calc(4.1em + 3px);
-		}
-		#MaxChannels, #count, button {
-			font-size: 3em;
-			width: 65px;
-			height: 30px;
-			line-height: 30px;
-			border: 1x solid #000;
-		}
-		button {
-			width: 36px;
-			height: 36px;
-		}
-		form, .display, .form {
-			display: inherit;
-			padding-top: 5em;
-			width: 98%;
-		}
-		.fancybox-container form,
-		.fancybox-container .display,
-		iframe .form {
-			display: flex;
-			padding-top: 0;
-		}
-		form>div {
-			width: 100%;
-			height: auto;
-		}
-		#Fixtures {
-			margin-left: 0;
-		}
-		.linesearch {
-			float: none;
-			display: block;
-			text-align: right;
-			margin: 0;
-		}
-		#quicksearch {
-			padding-top: 4em;
-		}
-		#NavButtons {
-			visibility: visible;
+		@media screen and (max-width: 1350px) {
+			#MaxChannels, #count, button {
+				font-size: 3.2em;
+				width: calc(100% - 80px);
+				height: 40px;
+				line-height: 40px
+			}
+			button {
+				width: 40px;
+				height: 40px;
+				font-size: 3em
+			}
+			@media screen and (max-width: 1250px) {
+				#Fixtures>ul ul,
+				#Fixtures>ul ol,
+				.list ol,
+				.list ul {
+					-moz-column-count: 6;
+					-webkit-column-count: 6;
+					column-count: 6
+				}
+				div[data-option] .label {
+					width: 35%!important
+				}
+				div[data-option] div {
+					width: 65%!important
+				}
+				@media screen and (max-width: 1100px) {
+					#Fixtures>ul ul,
+					#Fixtures>ul ol,
+					.list ol,
+					.list ul {
+						-moz-column-count: 5;
+						-webkit-column-count: 5;
+						column-count: 5
+					}
+					.select2-container--default .select2-results__group {
+						font-size: 70%
+					}
+					.DispBox.Right {
+						width: 50%
+					}
+					@media screen and (max-width: 900px) {
+						#Fixtures>ul ul,
+						#Fixtures>ul ol,
+						.list ol,
+						.list ul {
+							-moz-column-count: 4;
+							-webkit-column-count: 4;
+							column-count: 4
+						}
+						@media screen and (max-width: 850px) {
+							html:not(.fancybox-container) fieldset label > span, html:not(.fancybox-container) fieldset .label > span {
+								display: none
+							}
+							.sticky {
+								top: 2.2em
+							}
+							h1>a {
+								font-size: 1em;
+								position: absolute
+							}
+							h1>a:hover, h1>a:focus, h1>a:active {
+								padding-bottom: 0!important;
+								position: absolute!important
+							}
+							h1 > span:first-child a > img {
+								width: 25px;
+								height: 25px
+							}
+							.detail h3>a>img,
+							#iconbox img {
+								width: 20px;
+								height: 20px
+							}
+							#iconbox a {
+								padding: 0.2em 0;
+								margin: 0 0.5em
+							}
+							#MaxChannels, #count, button {
+								font-size: 2.8em;
+								width: calc(100% - 72px);
+								height: 36px;
+								line-height: 36px
+							}
+							button {
+								width: 36px;
+								height: 36px
+							}
+							form, .display, .form {
+								display: inherit;
+								padding-top: 2.5em;
+								width: 98%
+							}
+							.DispBox {
+								padding: 2.5em 1em 1em
+							}
+							.fancybox-container form,
+							.fancybox-container .display:not(.changelog),
+							iframe .form {
+								display: flex;
+								padding-top: 0
+							}
+							form>div {
+								width: 100%;
+								height: auto;
+								overflow: initial
+							}
+							form>div:first-child {
+								width: 100%
+							}
+							#Fixtures {
+								margin-left: 0
+							}
+							.linesearch {
+								float: none;
+								display: block;
+								text-align: right;
+								margin: 0;
+								font-size: 60%;
+								top: 2.3em;
+								left: 27px
+							}
+							#NavButtons {
+								visibility: visible
+							}
+							#Fixtures>ul ul,
+							#Fixtures>ul ol,
+							.list ol,
+							.list ul {
+								-moz-column-count: 5;
+								-webkit-column-count: 5;
+								column-count: 5
+							}
+							.DispBox.Right {
+								width: 100%
+							}
+							form>div {
+								max-height: none
+							}
+							#Channels {
+								margin-top: 0
+							}
+							.notif::after {
+								width: 8px;
+								height: 8px;
+								top: 3px;
+								border: 0.1px solid rgb(0, 0, 0);
+								right: -2px
+							}
+							@media screen and (max-width: 700px) {
+								#Fixtures>ul ul,
+								#Fixtures>ul ol,
+								.list ol,
+								.list ul {
+									-moz-column-count: 4;
+									-webkit-column-count: 4;
+									column-count: 4
+								}
+								@media screen and (max-width: 600px) {
+									#Fixtures>ul ul,
+									#Fixtures>ul ol,
+									.list ol,
+									.list ul {
+										-moz-column-count: 3;
+										-webkit-column-count: 3;
+										column-count: 3
+									}
+									@media screen and (max-width: 600px) {
+										#Fixtures>ul ul,
+										#Fixtures>ul ol,
+										.list ol,
+										.list ul {
+											-moz-column-count: 2;
+											-webkit-column-count: 2;
+											column-count: 2
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }

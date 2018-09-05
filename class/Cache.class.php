@@ -43,7 +43,15 @@ class Cache {
 			require_once($CacheNameBody);
 		} else {
 			ob_start();
-			require_once('page.'.$File.'.php');
+			switch(substr($File, 0, 2)) {
+				case 'ug':
+					$filePrefix = 'ug/page.';
+					break;
+				default:
+					$filePrefix = 'page.';
+					break;
+			}
+			require_once($filePrefix.$File.'.php');
 			$CacheFile = fopen($CacheNameBody, 'w');
 				fwrite($CacheFile, ob_get_contents());
 				fclose($CacheFile);

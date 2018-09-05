@@ -1,0 +1,128 @@
+@media print {
+	@page {
+		margin: 1.5cm;
+	}
+}
+@font-face {
+    font-family: 'Digital 7';
+    src: url('digital-7.ttf') format('truetype');
+}
+* {
+    overflow: visible!important;
+	text-shadow: none!important;
+	box-shadow: none!important;
+}
+/* ScrollBar */
+::-webkit-scrollbar {
+    width: 0px;
+}
+body {
+	font-family: 'Open Sans', sans-serif;
+	color: #000;
+	background-color: #FFF;
+	font-size :15pt;
+}
+a, a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+#iconbox, #global, #NavButtons, .linesearch, #Fixtures a[target], #Channels .sticky>div:nth-child(5), label>span, button, .label>span, h2, .select2-container--default .select2-selection--single .select2-selection__arrow {
+    display: none;
+    visibility: hidden;
+}
+.sticky {
+	background: none;
+}
+form {
+	width: 100%;
+    margin: 0;
+	padding-top: 6pt;
+	font-size: 10pt;
+	display: block;
+}
+h1 {
+	background: none;
+	box-shadow: none;
+	display: none;
+}
+h1>a {
+    font-size: 14pt;
+}
+h1 > span:first-child a  {
+	padding: 0;
+	margin: 0;
+}
+h1 img {
+    width: 25pt;
+    margin: 0;
+    margin-left: 14pt;
+    filter: invert(100%);
+    padding: 0;
+}
+#MaxChannels, #count, button, .BlockButton {
+    background: none;
+    color: rgb(0, 0, 0);
+    text-shadow: none;
+    border: none;
+}
+#MaxChannels, #count {
+    font-size: 40pt;
+	text-align: left;
+}
+.TwoColumns select {
+    width: 80%;
+}
+select, input {
+	margin-right: inherit;
+}
+span.select2-selection.select2-selection--single.otherthanany, 
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	color: inherit!important;
+	background-color: #FFF!important;
+}
+#Preferences {
+    display: block;
+    position: relative;
+    background: none;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+#Channels {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+form>div:first-child {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 15pt;
+}
+form>div  {
+	max-height: initial;
+}
+td[data-option]>span, span[data-option]>span, div[data-option] .select2-selection--single.otherthanany {
+    background-image: none;
+}
+div[data-option] div,
+fieldset>div:not(.sticky)>div,
+fieldset>div.sticky>div>div {
+    width: 40%!important;
+}
+fieldset>div:not(.sticky)>div:last-child, fieldset>div.sticky>div>div:last-child  {
+	width: 60%!important;
+}
+li .wheelcolor li, li .wheelgobo li, li .wheelanimation li {
+    height: 15pt;
+    width: 15pt;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding: 0!important;
+}
+
+/* Fixture displays */
+.fancybox-active h1, .fancybox-active #global, .fancybox-active .DispBox, .fancybox-active form, .fancybox-bg {
+	display: none!important;
+	visibility: hidden!important;
+}
