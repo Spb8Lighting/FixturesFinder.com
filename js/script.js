@@ -1,4 +1,7 @@
 $(document).ready(function() {
+	function IsTouchDevice() {
+		return (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+	}
 	var $Cookie = {
 		Record : function(cname, cvalue) {
 			var d = new Date();
@@ -468,9 +471,11 @@ $(document).ready(function() {
 	Debug('', 'groupend');
 		
 	function RemoveAutoFocus() {
-		$('select').on('select2:open', function (e) {
-			$('.select2-search input').prop('focus',false);
-		});
+		if(IsTouchDevice()) {
+			$('select').on('select2:open', function (e) {
+				$('.select2-search input').prop('focus',false);
+			});
+		}
 	}
 	 // Create reusable method
     function myConfirm( opts ) {
