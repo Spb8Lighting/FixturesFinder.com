@@ -20,7 +20,7 @@
 			<li>Wheels</li>
 			<li>DMX Charts with DMX Channel type &amp; number</li>
 			<li>Fixture profile changelog</li>
-			<li>Switch Fixture preset</li>
+			<li>Switch Fixture Channel values</li>
 			<li>Close the window</li>
 		</ol>
 
@@ -50,13 +50,13 @@
 		<br />
 		<img src="ug/img/fixture-detail-dmx-chart-simplified.png" alt="DMX Chart" /></p>
 
-		<p>You can switch the simplified view to the extended one to see the channel presets. Click on the "Show Fixture Preset" <em>(4)</em> button to switch:
+		<p>You can switch the simplified view to the extended one to see the channel values. Click on the "Show Fixture Values" <em>(4)</em> button to switch:
 		<br />
-		<img src="ug/img/show-fixture-preset.png" alt="Show Fixture Preset" /></p>
+		<img src="ug/img/show-fixture-preset.png" alt="Show Fixture Values" /></p>
 
-		<p>As result, the channel presets are displayed:
+		<p>As result, the channel values are displayed:
 		<br />
-		<img src="ug/img/fixture-detail-dmx-chart-extended.png" alt="DMX Chart with presets" /></p>
+		<img src="ug/img/fixture-detail-dmx-chart-extended.png" alt="DMX Chart with values" /></p>
 
 	<h3>5 - Changelog</h3>
 
