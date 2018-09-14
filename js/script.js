@@ -1,4 +1,29 @@
 $(document).ready(function() {
+	function IsTouchDevice() {
+		return (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+	}
+	var $Cookie = {
+		Record : function(cname, cvalue) {
+			var d = new Date();
+			d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+			var expires = "expires="+d.toUTCString();
+			document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+		},
+	    Get : function(cname) {
+			var name = cname + "=";
+			var ca = document.cookie.split(';');
+			for(var i = 0; i < ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return false;
+		}
+	};
 	$('a[href^="http://"]').prop('target', '_blank');
 	$('a[href^="https://"]').prop('target', '_blank');
 	var _Debug_ = false, $Datas = false;
@@ -399,6 +424,9 @@ $(document).ready(function() {
 						afterLoad: function(i,c) {
 							$Title.text(Title);
 							history.pushState({url : Link, title : Title}, Title, Link);
+							if($Cookie.Get('ShowChannelValues') == 1) {
+								$('a[href="#<?php echo _ExpandLink_; ?>"]').click();
+							}
 						},
 						beforeClose: function(i,c) {
 							$Title.text(OriginTitle);
@@ -443,9 +471,11 @@ $(document).ready(function() {
 	Debug('', 'groupend');
 		
 	function RemoveAutoFocus() {
-		$('select').on('select2:open', function (e) {
-			$('.select2-search input').prop('focus',false);
-		});
+		if(IsTouchDevice()) {
+			$('select').on('select2:open', function (e) {
+				$('.select2-search input').prop('focus',false);
+			});
+		}
 	}
 	 // Create reusable method
     function myConfirm( opts ) {
@@ -572,11 +602,13 @@ $(document).ready(function() {
 						Debug('Expand infos', 'info');
 						$('a[href="#<?php echo _CollapseLink_; ?>"]').parent('h3').css('display', 'initial');
 						$FixtureDetails.addClass('extended');
+						$Cookie.Record('ShowChannelValues', 1)
 						break;
 					case '<?php echo _CollapseLink_; ?>':
 						Debug('Collapse infos', 'info');
 						$('a[href="#<?php echo _ExpandLink_; ?>"]').parent('h3').css('display', 'initial');
 						$FixtureDetails.removeClass('extended');
+						$Cookie.Record('ShowChannelValues', 0)
 						break;
 				}
 		Debug('', 'groupend');

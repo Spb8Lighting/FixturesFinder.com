@@ -3,6 +3,10 @@
 	<div class="display list changelog">
 <?php
 $Changelog = array(
+    '2018-09-14' => array(
+        'ADDED|New features "Keep Fixture Display", it permit to keep the extended or collapsed view on fixture profile view',
+        'UPDATED|The focus is coming back for non-touch device when clicking on a dropdown menu <em>(still disable for touch device to avoid the onscreen keyboard pop-up)</em>',
+    ),
     '2018-08-28' => array(
         'UPDATED|New Onyx Fixture Library 2018-08-22 indexed',
     ),

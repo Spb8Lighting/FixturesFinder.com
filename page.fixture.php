@@ -53,8 +53,8 @@ if (count($FixtureChangelog) > 0) {
 ?>
 		<div>
 			<h3><?php echo $ResumeChangelog; ?></h3>
-			<h3><a class="img" href="#<?php echo _CollapseLink_; ?>"><img src="img/svg/collapse.svg" alt="Hide Channel Presets" title="Hide Channel Presets" /></a></h3>
-			<h3><a class="img" href="#<?php echo _ExpandLink_; ?>"><img src="img/svg/expand.svg" alt="Show Channel Presets" title="Show Channel Presets" /></a></h3>
+			<h3><a class="img" href="#<?php echo _CollapseLink_; ?>"><img src="img/svg/collapse.svg" alt="Hide Channel Values" title="Hide Channel Values" /></a></h3>
+			<h3><a class="img" href="#<?php echo _ExpandLink_; ?>"><img src="img/svg/expand.svg" alt="Show Channel Values" title="Show Channel Values" /></a></h3>
 			<h3><a class="img" data-fancybox-close="" href="#close"><img src="img/svg/close.svg" alt="Close" title="Close" /></a></h3>
 			<div id="<?php echo _ChangelogLink_; ?>">
 				<ul>
