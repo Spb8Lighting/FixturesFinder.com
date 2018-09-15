@@ -621,26 +621,67 @@ $(document).ready(function() {
 			$QuickSearchBOX.slideUp(250);
 		});
 	// Menu box
-	$('.showbox').on('click', 'a', function(e){
-		Debug('Panel Displayed', 'group');
-			e.preventDefault();
-			var $This = $(this),
-			$Href = $This.attr('href'),
-			$Target = $($Href);
-			$('.showbox a').removeClass('HighLight');
-			if($Target.is(':visible')) {
-				$Target.slideUp(250);
-				$Body.removeClass('SetOpacity');
-				$Target.blur();
-			} else {
-				ScrollToTop();
-				$('.DispBox').slideUp(250);
-				$Target.slideDown(250);
-				$This.addClass('HighLight');
-				$Body.addClass('SetOpacity');
+	var DELAY = 0, clicks = 0, timer = null;
+	$('.showbox a').on('click', function(e){
+		e.preventDefault();
+		var $This = $(this),
+		$Href = $This.attr('href');
+		if($Href == '#<?php echo _Preferences_; ?>') {
+			DELAY = 150;
+		} else {
+			DELAY = 0;
+		}
+		clicks++;
+		if(clicks === 1) {
+			if($Href != '#<?php echo _Preferences_; ?>' || $Href == '#<?php echo _Preferences_; ?>' && $Cookie.Get('MoveSettings') != 1) {
+				timer = setTimeout(function() {
+					Debug('Panel Displayed', 'group');
+						var $Href = $This.attr('href'),
+						$Target = $($Href);
+						$('.showbox a').removeClass('HighLight');
+						if($Target.is(':visible')) {
+							$Target.slideUp(250);
+							$Body.removeClass('SetOpacity');
+							$Target.blur();
+						} else {
+							ScrollToTop();
+							$('.DispBox').slideUp(250);
+							$Target.slideDown(250);
+							$This.addClass('HighLight');
+							$Body.addClass('SetOpacity');
+						}
+					clicks = 0;             //after action performed, reset counter
+					Debug('', 'groupend');
+				}, DELAY, $This);
 			}
-		Debug('', 'groupend');
+        } else {
+			Debug('Move Settings', 'group');
+            clearTimeout(timer);    //prevent single-click action
+            var $FlyingClass = 'DispBox Right',
+			$Target = $($Href);
+			if($Href == '#<?php echo _Preferences_; ?>') {
+				$('.showbox a').removeClass('HighLight');
+				if($Target.hasClass($FlyingClass)) {
+					$Cookie.Record('MoveSettings', 1)
+					$Target.removeClass($FlyingClass).show();
+					$Body.removeClass('SetOpacity');
+					$Target.blur();
+				} else {
+					$Cookie.Record('MoveSettings', 0)
+					$Target.addClass($FlyingClass).hide();
+					$Body.removeClass('SetOpacity');
+					$Target.blur();
+				}
+			}
+			clicks = 0;             //after action performed, reset counter
+			Debug('', 'groupend');
+        }
+	}).on('dblclick', function(e){
+		e.preventDefault();
 	});
+	if($Cookie.Get('MoveSettings') == 1) {
+		$('a[href="#<?php echo _Preferences_; ?>"]').click().click();
+	}
 	// Outside click hide Menu Box
 	$('h1, #Channels, #Fixtures, form>div:nth-child(2)').click(function(e) {
 		if($(e.target).parent('a').parent('span').prop('class') != 'showbox' && $('.DispBox').is(':visible')) {

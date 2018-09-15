@@ -3,8 +3,12 @@
 	<div class="display list changelog">
 <?php
 $Changelog = array(
+    '2018-09-15' => array(
+        'ADDED|New features "Move Settings", it permits to move the settings content on top of the form. Double click on the settings icon to activate/deactivate this feature. The preference is kept automatically following your action.',
+    ),
     '2018-09-14' => array(
-        'ADDED|New features "Keep Fixture Display", it permit to keep the extended or collapsed view on fixture profile view',
+        'ADDED|New features "Keep Fixture Display", it permits to keep the extended or collapsed view on fixture profile view. The preference is kept automatically following your action.',
+        'UPDATED|Wording update for the fixture detail page. "Show/Hide Channel Presets" become "Show/Hide Channel Values"',
         'UPDATED|The focus is coming back for non-touch device when clicking on a dropdown menu <em>(still disable for touch device to avoid the onscreen keyboard pop-up)</em>',
     ),
     '2018-08-28' => array(
