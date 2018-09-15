@@ -1,6 +1,11 @@
 $(document).ready(function() {
 	function IsTouchDevice() {
-		return (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
+		if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+			return true;
+		} else {
+			return false;
+		}
+		//return (('ontouchstart' in window) || (navigator.MaxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0));
 	}
 	var $Cookie = {
 		Record : function(cname, cvalue) {
