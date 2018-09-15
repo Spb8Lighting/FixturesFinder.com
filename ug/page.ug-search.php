@@ -48,6 +48,8 @@
 		<br />
 		<img src="ug/img/search-settings_parameter-list-full.png" alt="Channel Type List set to Full" /></p>
 
+		<p>If you want Search Settings on top of the main form, simply double click on the "Gear Icon". Perform the same action to get back Search Settings at its original position.</p>
+
 		<p><strong>Note: Your navigator can be really slower with the channel type list set to full due to the high level of parameters available</strong></p>
 
 </div>

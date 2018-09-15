@@ -16,6 +16,8 @@
 		<p>If the Search Mode defined is not the default one <em>("Exact")</em>, a small circle appears on the "Search Settings" icon:
 		<br /><img src="ug/img/search_mode-notify.png" alt="Circle symbol on the Search Settings icon" /></p>
 
+		<p>If you want Search Settings on top of the main form, simply double click on the "Gear Icon". Perform the same action to get back Search Settings at its original position.</p>
+
 	<h3>Full search with respect of the channel order</h3>
 
 		<p>Search mode: <strong>Exact</strong></p>
