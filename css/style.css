@@ -528,6 +528,9 @@ a[href*="//"]:not([href*="onyxfixturefinder.com"]) {
 	color: inherit!important;
 	padding-right: 0
 }
+#Fixtures a[pop].visited {
+    color: rgb(239,251,65)!important;
+}
 a,
 a:not(.img):visited,
 a:not(.img):focus,

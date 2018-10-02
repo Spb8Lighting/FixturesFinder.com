@@ -404,43 +404,56 @@ $(document).ready(function() {
 		$Datas = false;
 		}
 	}
+	var cntrlIsPressed = false;
+	$(document).keydown(function (event) {
+		if (event.which == '17')
+			cntrlIsPressed = true;
+	});
+
+	$(document).keyup(function () {
+		cntrlIsPressed = false;
+	});
 	Debug('Initialisation', 'group');
 		Debug('Fancybox for Pop-in', 'info');
 			$('body').on('click', 'a[pop]', function(e) {
-				e.preventDefault();
-				var Link = $(this).attr('href'),
-				Title = $(this).text(),
-				OriginTitle = document.title;
-				$.fancybox.open({
-					opts: {
-						smallBtn : true,
-						touch: false,
-						buttons : [],
-						ajax : {
-							settings : {
-								method: 'POST',
-								data : {
-									<?php echo _GetPage_; ?> : true,
-									fancybox : false
-								}
+				var $This = $(this),
+					Link = $This.attr('href'),
+					Title = $This.text(),
+					OriginTitle = document.title;
+				$This.addClass('visited');
+				if (!cntrlIsPressed) {
+					e.preventDefault();
+					$.fancybox.open({
+						opts: {
+							smallBtn: true,
+							touch: false,
+							buttons: [],
+							ajax: {
+								settings: {
+									method: 'POST',
+									data: {
+												<?php echo _GetPage_; ?> : true,
+								fancybox: false
 							}
+						}
 
-						},
-						afterLoad: function(i,c) {
+					},
+						afterLoad: function (i, c) {
 							$Title.text(Title);
-							history.pushState({url : Link, title : Title}, Title, Link);
-							if($Cookie.Get('ShowChannelValues') == 1) {
+							history.pushState({ url: Link, title: Title }, Title, Link);
+							if ($Cookie.Get('ShowChannelValues') == 1) {
 								$('a[href="#<?php echo _ExpandLink_; ?>"]').click();
 							}
 						},
-						beforeClose: function(i,c) {
+						beforeClose: function (i, c) {
 							$Title.text(OriginTitle);
 							history.back();
 						}
-					},
-					src  : Link,
-					type : 'ajax'
+								},
+					src: Link,
+						type : 'ajax'
 				});
+				}
 			});
 			$('body').on('click', 'a[pop-iframe]', function(e) {
 				e.preventDefault();
@@ -899,5 +912,4 @@ $(document).ready(function() {
 		HashUsed(false);
 		Debug('', 'groupend');
 	}
-	
 });

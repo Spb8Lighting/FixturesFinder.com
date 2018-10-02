@@ -3,6 +3,10 @@
 	<div class="display list changelog">
 <?php
 $Changelog = array(
+    '2018-10-02' => array(
+        'ADDED|Visited fixture profile is a new function which allow you to track the profile you already displayed <em>(the tracking is reset after a new search)</em>',
+        'FIXED|Opening a fixture profile with the combo "CTRL+CLICK" was not working',
+    ),
     '2018-09-15' => array(
         'ADDED|New features "Move Settings", it permits to move the settings content on top of the form. Double click on the settings icon to activate/deactivate this feature. The preference is kept automatically following your action.',
     ),
